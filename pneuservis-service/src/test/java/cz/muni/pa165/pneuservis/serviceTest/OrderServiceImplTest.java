@@ -1,6 +1,5 @@
 package cz.muni.pa165.pneuservis.serviceTest;
 
-import com.sun.org.glassfish.external.statistics.annotations.Reset;
 import cz.fi.muni.pa165.pneuservis.dao.OrderDAO;
 import cz.fi.muni.pa165.pneuservis.entity.Order;
 import cz.fi.muni.pa165.pneuservis.entity.Service;

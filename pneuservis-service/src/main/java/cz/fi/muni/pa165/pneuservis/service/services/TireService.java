@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  *
- * @author Matej Šípka
+ * @author Matej Sipka
  */
 public interface TireService {
 

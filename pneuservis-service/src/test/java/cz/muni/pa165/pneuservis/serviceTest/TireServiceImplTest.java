@@ -32,7 +32,7 @@ import org.testng.annotations.Test;
 
 /**
  *
- * @author Matej Šípka
+ * @author Matej Sipka
  */
 @ContextConfiguration(classes = ServiceConfiguration.class)
 public class TireServiceImplTest extends AbstractTestNGSpringContextTests {

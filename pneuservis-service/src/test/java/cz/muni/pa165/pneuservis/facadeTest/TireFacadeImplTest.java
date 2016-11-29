@@ -41,7 +41,7 @@ import sun.java2d.loops.SurfaceType;
 
 /**
  *
- * @author Matej Šípka
+ * @author Matej Sipka
  */
 @ContextConfiguration(classes = ServiceConfiguration.class)
 public class TireFacadeImplTest extends AbstractTestNGSpringContextTests {
