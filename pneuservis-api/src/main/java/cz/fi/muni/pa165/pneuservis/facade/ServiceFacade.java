@@ -14,21 +14,21 @@ public interface ServiceFacade {
      * @param service - service to be stored
      * @throws IllegalArgumentException - exception if service has some illegal arguments
      */
-    void create(ServiceDTO service) throws IllegalArgumentException;
+    Long create(ServiceDTO service) throws IllegalArgumentException;
 
     /**
      * delete service from database
      * @param service - serviceId to be deleted
      * @throws IllegalArgumentException - exception if service does not exist if database
      */
-    void delete(ServiceDTO service) throws IllegalArgumentException;
+    Long delete(ServiceDTO service) throws IllegalArgumentException;
 
     /**
      * update service
      * @param service -service object with updated attributes
      * @throws IllegalArgumentException - throws if service has some illegal attributes
      */
-    void update(ServiceDTO service) throws IllegalArgumentException;
+    Long update(ServiceDTO service) throws IllegalArgumentException;
 
     /**
      * Find service by its ID

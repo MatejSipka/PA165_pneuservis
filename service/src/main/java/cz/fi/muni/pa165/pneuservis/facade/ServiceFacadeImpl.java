@@ -25,19 +25,19 @@ public class ServiceFacadeImpl implements ServiceFacade {
     private BeanMappingService beanMappingService;
 
     @Override
-    public void create(ServiceDTO service) {
+    public Long create(ServiceDTO service) {
         Service serviceEntity = beanMappingService.mapTo(service, Service.class);
-        serviceService.create(serviceEntity);
+        return serviceService.create(serviceEntity);
     }
 
     @Override
-    public void delete(ServiceDTO service) {
-        serviceService.delete(beanMappingService.mapTo(service, Service.class));
+    public Long delete(ServiceDTO service) {
+        return serviceService.delete(beanMappingService.mapTo(service, Service.class));
     }
 
     @Override
-    public void update(ServiceDTO service) {
-        serviceService.update(beanMappingService.mapTo(service, Service.class));
+    public Long update(ServiceDTO service) {
+        return serviceService.update(beanMappingService.mapTo(service, Service.class));
     }
 
     @Override

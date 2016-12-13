@@ -22,7 +22,7 @@ public class ServiceServiceImpl implements ServiceService {
     private ServiceDAO serviceDAO;
 
     @Override
-    public Service create(Service service) {
+    public Long create(Service service) {
         try {
             return serviceDAO.create(service);
         } catch (ConstraintViolationException | IllegalArgumentException | NullPointerException | PersistenceException e){
@@ -31,7 +31,7 @@ public class ServiceServiceImpl implements ServiceService {
     }
 
     @Override
-    public Service delete(Service service) {
+    public Long delete(Service service) {
         try {
             return serviceDAO.delete(service);
         } catch (ConstraintViolationException | IllegalArgumentException | NullPointerException | PersistenceException e){
@@ -40,9 +40,9 @@ public class ServiceServiceImpl implements ServiceService {
     }
 
     @Override
-    public void update(Service service) {
+    public Long update(Service service) {
         try {
-            serviceDAO.update(service);
+            return serviceDAO.update(service);
         } catch (ConstraintViolationException | IllegalArgumentException | NullPointerException | PersistenceException e){
             throw new PneuservisPortalDataAccessException("Cannot update service", e);
         }

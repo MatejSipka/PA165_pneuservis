@@ -88,17 +88,10 @@ public class ServiceFacadeImplTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void createService() {
-        when(serviceService.create(service1)).thenReturn(service1);
+        when(serviceService.create(service1)).thenReturn(service1.getId());
         serviceFacade.create(serviceDTO1);
         verify(serviceService).create(any(Service.class));
     }
-
-    /*@Test(expectedExceptions = PneuservisPortalDataAccessException.class)
-    public void createIllegalService() {
-        when(serviceService.create(service2)).thenThrow(PneuservisPortalDataAccessException.class);
-        serviceFacade.create(beanMappingService.mapTo(service2, ServiceDTO.class));
-        verify(serviceService).create(any(Service.class));
-    }*/
 
     @Test
     public void findById() {
@@ -117,7 +110,7 @@ public class ServiceFacadeImplTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void deleteServiceTest() {
-        when(serviceService.delete(service1)).thenReturn(service1);
+        when(serviceService.delete(service1)).thenReturn(service1.getId());
         serviceFacade.delete(serviceDTO1);
         verify(serviceService).delete(service1);
     }

@@ -14,21 +14,21 @@ public interface ServiceService {
      * @param service - service to be stored
      * @throws IllegalArgumentException - exception if service has some illegal arguments
      */
-    Service create(Service service) throws IllegalArgumentException;
+    Long create(Service service) throws IllegalArgumentException;
 
     /**
      * delete service from database
      * @param service - serviceId to be deleted
      * @throws IllegalArgumentException - exception if service does not exist if database
      */
-    Service delete(Service service) throws IllegalArgumentException;
+    Long delete(Service service) throws IllegalArgumentException;
 
     /**
      * update service
      * @param service -service object with updated attributes
      * @throws IllegalArgumentException - throws if service has some illegal attributes
      */
-    void update(Service service) throws IllegalArgumentException;
+    Long update(Service service) throws IllegalArgumentException;
 
     /**
      * Find service by its ID
