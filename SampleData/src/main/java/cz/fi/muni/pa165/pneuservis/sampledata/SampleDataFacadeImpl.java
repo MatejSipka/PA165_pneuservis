@@ -6,6 +6,7 @@
 package cz.fi.muni.pa165.pneuservis.sampledata;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +23,8 @@ import java.util.Calendar;
  *
  * @author Maros Staurovsky
  */
+@Component
+@Transactional
 public class SampleDataFacadeImpl implements SampleDataFacade{
 
     @Autowired
