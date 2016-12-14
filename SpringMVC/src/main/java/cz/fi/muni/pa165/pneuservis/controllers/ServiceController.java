@@ -38,16 +38,16 @@ public class ServiceController {
     }
 
     @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
-    public String view(@PathVariable long id, Model model) {
+    public String view(@PathVariable("id") long id, Model model) {
         log.debug("view({})", id);
         model.addAttribute("service", serviceFacade.findById(id));
         return "services/view";
     }
 
-    @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
-    public String view(@PathVariable String name, Model model) {
+    @RequestMapping(value = "/view/{name}", method = RequestMethod.GET)
+    public String view(@PathVariable("name") String name, Model model) {
         log.debug("view({})", name);
-        model.addAttribute("service", serviceFacade.findByName(name));
+        model.addAttribute("services", serviceFacade.findByName(name));
         return "services/view";
     }
 
