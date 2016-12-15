@@ -53,6 +53,11 @@ public class ServiceController {
         log.debug("services.findAll()");
         model.addAttribute("services", serviceFacade.findAllServices());
 
+//        ServiceDTO ser = serviceFacade.findById(1L);
+////        System.out.println("");
+////        System.out.println("DOSLO: "+ser.getNameOfService() + "  " + ser.hasOwnParts());
+////        System.out.println("");
+        
         PersonDTO person = PersonDTO.class.cast(session.getAttribute("authenticated"));
         if (person != null) {
             if (personFacade.findById(person.getId()).getPersonType() == EMPLOYEE) {

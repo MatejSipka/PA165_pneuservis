@@ -33,7 +33,15 @@
         <c:forEach items="${services}" var="service">
             <tr>
                 <td><c:out value="${service.duration}"/></td>
-                <td><c:out value="${service.ownParts}"/></td>
+                <td>
+                    <%--<c:if test="${service.ownParts == TRUE}">--%>
+                        <!--TRUE-->
+                    <%--</c:if>--%>
+                    <%--<c:out value="${service.ownParts}"/>--%>
+                    <%--<c:if test="${service.ownParts == FALSE}">--%>
+                        <!--FALSE-->
+                    <%--</c:if>--%>
+                </td>
                 <td><c:out value="${service.nameOfService}"/></td>
                 <td><c:out value="${service.price}"/></td>
                 <td><c:out value="${service.description}"/></td>
