@@ -100,9 +100,9 @@ public class PersonController {
     @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
     public String view(@PathVariable long id, Model model) {
         log.debug("person.findById()");
-        PersonDTO person = personFacade.findById(id);
-        model.addAttribute("person", person);
-        
+        PersonDTO personView = personFacade.findById(id);
+        model.addAttribute("person", personView);
+        PersonDTO person = PersonDTO.class.cast(session.getAttribute("authenticated"));
         if (person != null) {
             if (personFacade.findById(person.getId()).getPersonType() == EMPLOYEE) {
                 model.addAttribute("Admin", person.getLogin());
