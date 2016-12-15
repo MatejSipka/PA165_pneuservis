@@ -46,7 +46,7 @@ public class SampleDataFacadeImpl implements SampleDataFacade{
 
         Services service1 = createService(3, true, "change of oil", BigDecimal.valueOf(1500), "boring", "audi");
         Services service2 = createService(5, true, "change of engine", BigDecimal.valueOf(10000), "yeah", "fiat");
-        Services service3 = createService(10, true, "change of gear", BigDecimal.valueOf(7500), "ou yeah", "bmw");
+        Services service3 = createService(10, true, "change of transmission", BigDecimal.valueOf(7500), "ou yeah", "bmw");
         Services service4 = createService(2, true, "change of suspension", BigDecimal.valueOf(8500), "bleee", "mercedes");
 
         Tire tire1 = createTire(TireType.WINTER, 258, 255, 17, TireManufacturer.FIRESTONE, BigDecimal.valueOf(1050), "dsa", "audi");

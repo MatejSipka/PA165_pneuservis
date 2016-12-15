@@ -131,6 +131,7 @@ public class ServiceController {
                          RedirectAttributes redirectAttributes) {
         log.debug("services");
         ServiceDTO serviceDTO = serviceFacade.findById(id);
+
         serviceFacade.delete(serviceDTO);
 
         redirectAttributes.addFlashAttribute("alert_success", "Service successfully deleted.");
