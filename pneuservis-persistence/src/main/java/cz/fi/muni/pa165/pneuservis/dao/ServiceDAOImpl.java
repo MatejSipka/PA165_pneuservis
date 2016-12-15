@@ -42,7 +42,7 @@ public class ServiceDAOImpl implements ServiceDAO {
         if (service == null){
             throw new IllegalArgumentException("Cannot delete null service");
         }
-        entityManager.remove(service);
+        entityManager.remove(entityManager.contains(service) ? service : entityManager.merge(service));
         return service.getId();
     }
 

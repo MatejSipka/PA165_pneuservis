@@ -14,7 +14,7 @@
 <my:pageTemplate title="Services">
 <jsp:attribute name="body">
     <c:if test="${not empty Admin}">
-    <my:a href="/services/create" class="btn btn-primary"> New service</my:a>
+    <my:a href="/service/create" class="btn btn-primary"> New service</my:a>
     </c:if>
 
     <table class="table">
@@ -22,7 +22,6 @@
         <thead>
         <tr>
             <th>duration(hours)</th>
-            <th>own parts</th>
             <th>name</th>
             <th>price</th>
             <th>description</th>
@@ -33,24 +32,15 @@
         <c:forEach items="${services}" var="service">
             <tr>
                 <td><c:out value="${service.duration}"/></td>
-                <td>
-                    <%--<c:if test="${service.ownParts == TRUE}">--%>
-                        <!--TRUE-->
-                    <%--</c:if>--%>
-                    <%--<c:out value="${service.ownParts}"/>--%>
-                    <%--<c:if test="${service.ownParts == FALSE}">--%>
-                        <!--FALSE-->
-                    <%--</c:if>--%>
-                </td>
                 <td><c:out value="${service.nameOfService}"/></td>
                 <td><c:out value="${service.price}"/></td>
                 <td><c:out value="${service.description}"/></td>
                 <td><c:out value="${service.typeOfCar}"/></td>
-                <td><my:a href="/services/view/${service.id}" class="btn btn-primary">View</my:a></td>
+                <td><my:a href="/service/view/${service.id}" class="btn btn-primary">View</my:a></td>
                 <c:if test="${not empty Admin}">
-                    <td><my:a href="/services/edit/${service.id}" class="btn btn-primary">Edit</my:a></td>
+                    <td><my:a href="/service/edit/${service.id}" class="btn btn-primary">Edit</my:a></td>
                     <td>
-                        <form method="post" action="${pageContext.request.contextPath}/services/delete/${service.id}">
+                        <form method="post" action="${pageContext.request.contextPath}/service/delete/${service.id}">
                             <button type="submit" class="btn btn-primary">Delete</button></form>
                     </td>
                 </c:if>
