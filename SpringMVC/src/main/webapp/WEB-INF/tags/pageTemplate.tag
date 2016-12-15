@@ -43,7 +43,7 @@
                     <ul class="dropdown-menu">
                         <li><my:a href="/service/list"><f:message key="navigation.admin.service"/></my:a></li>
                         <li><my:a href="/person/list"><f:message key="navigation.admin.person"/></my:a></li>
-                        <li><my:a href="/tire/list"><f:message key="navigation.admin.tire"/></my:a></li>
+                        <li><my:a href="/tires/list"><f:message key="navigation.admin.tire"/></my:a></li>
                         <li><my:a href="/order/list"><f:message key="navigation.admin.order"/></my:a></li>
                     </ul>
                 </li>
