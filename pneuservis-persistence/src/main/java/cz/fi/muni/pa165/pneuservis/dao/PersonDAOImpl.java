@@ -44,7 +44,10 @@ public class PersonDAOImpl implements PersonDAO{
 
     @Override
     public void delete(Person person) {
-        em.remove(person);
+        if(person == null) {
+            throw new IllegalArgumentException("Trying to delete null");
+        }
+        em.remove(em.contains(person) ? person : em.merge(person));
     }
 
     @Override
