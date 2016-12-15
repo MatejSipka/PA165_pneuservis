@@ -62,7 +62,7 @@
             </div>
         </div>
         <div class="form-group ${dateOfBirth_error?'has-error':''}">
-            <form:label path="dateOfBirth" cssClass="col-sm-2 control-label">Date of birth</form:label>
+            <form:label path="dateOfBirth" cssClass="col-sm-2 control-label">Date of birth(mm/dd/yyyy)</form:label>
             <div class="col-sm-10">
             <fmt:formatDate value="${person.dateOfBirth}" pattern="dd/MM/yyyy"/>
                 <form:input path="dateOfBirth" id="datepicker" class="date" cssClass="form-control"/>

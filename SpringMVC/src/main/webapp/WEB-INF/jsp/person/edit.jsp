@@ -28,28 +28,37 @@
     <form:form method="post" action="${pageContext.request.contextPath}/person/edit/${data.id}"
            modelAttribute="person" cssClass="form-horizontal">
         
-        <div class="form-group ${type_error?'has-error':''}">
-                <form:label path="type" cssClass="col-sm-2 control-label">Type of Person</form:label>
+        <div class="form-group ${personType_error?'has-error':''}">
+                <form:label path="personType" cssClass="col-sm-2 control-label">Type of Person</form:label>
                     <div class="col-sm-1 typeRadio">
                         <label for="radioEmployee">
                             Employee
                         </label>
-                        <form:radiobutton path="type" id="radioEmployee" value="EMPLOYEE"/>
+                    <c:if test="${data.personType == 'EMPLOYEE'}">
+                        <form:radiobutton path="personType" id="radioEmployee" checked = "checked" value="EMPLOYEE"/>
+                        </c:if>
+                    <c:if test="${data.personType != 'EMPLOYEE'}"><form:radiobutton path="personType" id="radioEmployee" value="EMPLOYEE"/>
+                    </c:if>
                     </div>
                     <div class="col-sm-1 typeRadio">
                         <label for="radioClient">
                             Client
                         </label>
-                        <form:radiobutton path="type" id="radioClient" value="CLIENT"/>
+                    <c:if test="${data.personType == 'CLIENT'}">
+                        <form:radiobutton path="personType" id="radioClient" checked = "checked" value="CLIENT"/>
+                    </c:if>
+                    <c:if test="${data.personType != 'CLIENT'}">
+                        <form:radiobutton path="personType" id="radioClient" value="CLIENT"/>
+                    </c:if>
                     </div>
                     <div class="col-sm-8">                        
-                        <form:errors path="type" cssClass="help-block"/>
+                        <form:errors path="personType" cssClass="help-block"/>
                     </div>
         </div>
         <div class="form-group ${firstname_error?'has-error':''}">
             <form:label path="firstname" cssClass="col-sm-2 control-label">First Name</form:label>
             <div class="col-sm-10">
-                <form:input path="firstname" cssClass="form-control"/>
+                <form:input path="firstname" cssClass="form-control" value="${data.firstname}"/>
                 <form:errors path="firstname" cssClass="help-block"/>
             </div>
         </div>
@@ -57,23 +66,23 @@
         <div class="form-group ${lastname_error?'has-error':''}">
             <form:label path="surname" cssClass="col-sm-2 control-label">Surname</form:label>
             <div class="col-sm-10">
-                <form:input path="surname" cssClass="form-control"/>
+                <form:input path="surname" cssClass="form-control" value="${data.surname}"/>
                 <form:errors path="surname" cssClass="help-block"/>
             </div>
         </div>
-        <div class="form-group ${DateOfBirth_error?'has-error':''}">
-            <form:label path="DateOfBirth" cssClass="col-sm-2 control-label">Date of Birth</form:label>
+        <div class="form-group ${dateOfBirth_error?'has-error':''}">
+            <form:label path="dateOfBirth" cssClass="col-sm-2 control-label">Date of Birth (mm/dd/yyyy)</form:label>
             <div class="col-sm-10">
-            <fmt:formatDate value="${data.DateOfBirth}" pattern="dd/MM/yyyy"/>
-                <form:input path="DateOfBirth" id="datepicker" class="date" cssClass="form-control"/>
-                <form:errors path="DateOfBirth" cssClass="help-block"/>
+            <fmt:formatDate value="${data.dateOfBirth}" pattern="dd/MM/yyyy"/>
+                <form:input path="dateOfBirth" id="datepicker" class="date" cssClass="form-control" value="${data.dateOfBirth}"/>
+                <form:errors path="dateOfBirth" cssClass="help-block"/>
             </div>
         </div>
             
             <div class="form-group ${login_error?'has-error':''}">
             <form:label path="login" cssClass="col-sm-2 control-label">Login</form:label>
             <div class="col-sm-10">
-                <form:input path="login" cssClass="form-control"/>
+                <form:input path="login" cssClass="form-control" value="${data.login}"/>
                 <form:errors path="login" cssClass="help-block"/>
             </div>
         </div>

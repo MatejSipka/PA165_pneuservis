@@ -25,7 +25,7 @@
             <th>Fist name</th>
             <th>Surname</th>
             <th>Type</th>
-            <th>Date of birth</th>
+            <th>Date of birth (dd-mm-yyyy)</th>
             <th>Login</th>
         </tr>
         </thead>

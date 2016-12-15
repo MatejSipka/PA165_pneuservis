@@ -32,7 +32,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Controller
 @RequestMapping("/person")
 public class PersonController {
-    
+    private PersonDTO tmp;
     final static Logger log = LoggerFactory.getLogger(PersonController.class);
 
     @Autowired
@@ -124,6 +124,46 @@ public class PersonController {
 
         redirectAttributes.addFlashAttribute("alert_success", "Person successfully deleted.");
         return "redirect:" + uriBuilder.path("/person/list").toUriString();
+    }
+    
+    
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public String view(Model model, @PathVariable("id") Long id) {
+        model.addAttribute("person", personFacade.findById(id));
+        return "person/view";
+    }
+    
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    public String change(Model model, @PathVariable("id") Long id) {
+        model.addAttribute("person", new PersonDTO());
+        model.addAttribute("data", personFacade.findById(id));
+        model.addAttribute("firstname", personFacade.findById(id).getFirstname());
+        model.addAttribute("surname", personFacade.findById(id).getSurname());
+        model.addAttribute("personType", personFacade.findById(id).getPersonType());
+        model.addAttribute("login",personFacade.findById(id).getLogin());
+        model.addAttribute("dateOfBirth",personFacade.findById(id).getDateOfBirth());
+        
+        PersonDTO person = PersonDTO.class.cast(session.getAttribute("authenticated"));
+        if (person != null) {
+            if (personFacade.findById(person.getId()).getPersonType() == EMPLOYEE) {
+                model.addAttribute("Admin", person.getLogin());
+            } else {
+                model.addAttribute("User", person.getLogin());
+            }
+        }
+        tmp = person;
+        return "person/edit";
+    }
+
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
+    public String save(@Valid @ModelAttribute("mushroom") PersonDTO formBean, @PathVariable("id") Long id, BindingResult bindingResult,
+                         Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
+        formBean.setId(id);
+//        if (formBean.getDateOfBirth().getTime() == NULL)
+//        {
+//            
+//        }
+        return view(model, personFacade.update(formBean).getId());
     }
 
 }
