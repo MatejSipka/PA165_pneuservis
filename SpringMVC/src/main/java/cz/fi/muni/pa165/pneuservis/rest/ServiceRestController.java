@@ -19,30 +19,43 @@ import java.util.List;
  * @author Ivan Moscovic on 14.12.2016.
  */
 @RestController
-@RequestMapping("/rest/services")
+@RequestMapping("/rest/service")
 public class ServiceRestController {
 
-    final static Logger log =  LoggerFactory.getLogger(ServiceRestController.class);
+    final static Logger log = LoggerFactory.getLogger(ServiceRestController.class);
 
     @Inject
     private ServiceFacade serviceFacade;
 
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/list",
+            method = RequestMethod.GET,
+            headers = "Accept=application/json",
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<ServiceDTO> list() {
-        log.debug("rest getServices");
+        log.debug("rest service.findAll()");
         return serviceFacade.findAllServices();
     }
 
-    @RequestMapping(value = "/{name}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final List<ServiceDTO> view(@Pattern(regexp = "^[0-9]+$", message = "Invalid id!")
-                                 @NotNull @PathVariable("name") String name) throws Exception{
-        log.debug("rest service.findByName({})", name);
-        return serviceFacade.findByName(name);
+    @RequestMapping(value = "/create",
+            method = RequestMethod.POST,
+            headers = "Accept=application/json",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public final ServiceDTO create(@RequestBody ServiceDTO serviceDTO) throws Exception {
+        log.debug("rest service.create()");
+        try {
+            Long id = serviceFacade.create(serviceDTO);
+            return serviceFacade.findById(id);
+        } catch (Exception ex) {
+            throw new AlreadyExistingException();
+        }
     }
 
-    @RequestMapping(value = "/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final ServiceDTO view(@Pattern(regexp = "^[0-9]+$", message = "Invalid id!")
-                                 @NotNull @PathVariable("id") long id) throws Exception{
+    @RequestMapping(value = "/view/{id}",
+            method = RequestMethod.GET,
+            headers = "Accept=application/json",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public final ServiceDTO view(@Pattern(regexp = "^[0-9]+$", message = "Invalid id!") @NotNull @PathVariable("id") long id) throws Exception {
         log.debug("rest service.findById({})", id);
         ServiceDTO serviceDTO = serviceFacade.findById(id);
 
@@ -53,31 +66,17 @@ public class ServiceRestController {
         }
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST, headers = "Accept=application/json",
+    @RequestMapping(value = "/update/{id}",
+            method = RequestMethod.POST,
+            headers = "Accept=application/json",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public final void delete(@Pattern(regexp = "^[0-9]+$", message = "Invalid id!")
-                                 @NotNull @PathVariable("id") long id) throws Exception {
-        log.debug("rest service.delete({})", id);
-        ServiceDTO serviceDTO = serviceFacade.findById(id);
-
-        if (serviceDTO != null) {
-            throw new NotFoundException();
-        }
-        try {
-            serviceFacade.delete(serviceDTO);
-        } catch (Exception ex) {
-            throw new NotFoundException();
-        }
-    }
-
-    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST, headers = "Accept=application/json",
-            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final ServiceDTO update(@Pattern(regexp = "^[0-9]+$", message = "Invalid id!")
-                                       @NotNull @PathVariable("id") long id,
+    public final ServiceDTO update(@Pattern(regexp = "^[0-9]+$", message = "Invalid id!") @NotNull @PathVariable("id") long id,
                                   @RequestBody ServiceDTO serviceDTO) throws Exception {
         log.debug("rest service.update({})", id);
-        serviceDTO.setId(id);
+
         try {
+            serviceDTO.setId(id);
             serviceFacade.update(serviceDTO);
             return serviceFacade.findById(id);
         } catch (Exception ex) {
@@ -85,14 +84,18 @@ public class ServiceRestController {
         }
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST, headers = "Accept=application/json",
-            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final ServiceDTO create(@RequestBody ServiceDTO serviceDTO) throws Exception {
-        log.debug("rest service.create()");
+    @RequestMapping(value = "/delete/{id}",
+            method = RequestMethod.POST,
+            headers = "Accept=application/json",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public final void delete(@Pattern(regexp = "^[0-9]+$", message = "Invalid id!") @NotNull @PathVariable("id") long id) throws Exception {
+        log.debug("rest service.delete({})", id);
+        ServiceDTO serviceDTO = serviceFacade.findById(id);
+
         try {
-            return serviceFacade.findById(serviceFacade.create(serviceDTO));
+            serviceFacade.delete(serviceDTO);
         } catch (Exception ex) {
-            throw new AlreadyExistingException();
+            throw new NotFoundException();
         }
     }
 
