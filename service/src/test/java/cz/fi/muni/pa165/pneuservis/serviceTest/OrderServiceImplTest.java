@@ -2,7 +2,7 @@ package cz.fi.muni.pa165.pneuservis.serviceTest;
 
 import cz.fi.muni.pa165.pneuservis.dao.OrderDAO;
 import cz.fi.muni.pa165.pneuservis.entity.Order;
-import cz.fi.muni.pa165.pneuservis.entity.Service;
+import cz.fi.muni.pa165.pneuservis.entity.Services;
 import cz.fi.muni.pa165.pneuservis.entity.Tire;
 import cz.fi.muni.pa165.pneuservis.enums.PaymentType;
 import cz.fi.muni.pa165.pneuservis.enums.TireManufacturer;
@@ -44,7 +44,7 @@ public class OrderServiceImplTest extends AbstractTestNGSpringContextTests {
     private Order order2;
     private Order order3;
     private Order invalidOrder;
-    private Service service1;
+    private Services service1;
     private Tire tire1;
     private Tire tire2;
     private List<Order> allOrders;
@@ -57,7 +57,7 @@ public class OrderServiceImplTest extends AbstractTestNGSpringContextTests {
 
     @BeforeMethod
     public void prepareTest() throws ServiceException {
-        service1 = new Service();
+        service1 = new Services();
         service1.setId(1L);
         service1.setTypeOfCar("Audi");
         service1.setDuration(10);

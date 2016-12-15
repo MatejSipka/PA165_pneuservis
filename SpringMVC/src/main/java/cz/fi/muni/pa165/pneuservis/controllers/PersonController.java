@@ -45,7 +45,8 @@ public class PersonController {
     public String list(Model model) {
         log.debug("person.findAll()");
         model.addAttribute("persons", personFacade.findAll());
-        
+        System.out.println("What: " + personFacade.findById(1L).getDateOfBirth());
+        System.out.println("What: " + personFacade.findById(1L).getPersonType());
         PersonDTO person = PersonDTO.class.cast(session.getAttribute("authenticated"));
         if (person != null) {
             if (personFacade.findById(person.getId()).getPersonType() == EMPLOYEE) {

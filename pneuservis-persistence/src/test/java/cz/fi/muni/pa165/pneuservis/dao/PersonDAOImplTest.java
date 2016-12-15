@@ -7,6 +7,7 @@ import cz.fi.muni.pa165.pneuservis.PersistenceSampleApplicationContext;
 import cz.fi.muni.pa165.pneuservis.entity.Person;
 import cz.fi.muni.pa165.pneuservis.enums.PersonType;
 import cz.fi.muni.pa165.pneuservis.dao.PersonDAO;
+import java.util.Date;
 import java.util.Calendar;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -40,6 +41,12 @@ public class PersonDAOImplTest extends AbstractTestNGSpringContextTests {
     @BeforeMethod
     private void init(){
         
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(1995, 6, 2);
+        Date date1 = calendar.getTime();
+        calendar.set(1968, 10, 5);
+        Date date2 = calendar.getTime();
+        
         person1 = new Person();
         person2 = new Person();
         
@@ -47,13 +54,13 @@ public class PersonDAOImplTest extends AbstractTestNGSpringContextTests {
         person1.setSurname("Green");
         person1.setPersonType(PersonType.CLIENT);
         person1.setLogin("person.one");
-        person1.setDateOfBirth(Calendar.getInstance());
+        person1.setDateOfBirth(date1);
 
         person2.setFirstname("Sally");
         person2.setSurname("Orange");
         person2.setPersonType(PersonType.CLIENT);
         person2.setLogin("person.two");
-        person2.setDateOfBirth(Calendar.getInstance());
+        person2.setDateOfBirth(date2);
     }
 
     @Test

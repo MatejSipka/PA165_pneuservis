@@ -33,16 +33,17 @@ public class loginController {
     @RequestMapping(value="/check", method=RequestMethod.POST)
     public String Check(Model model, @RequestParam("login") String login, @RequestParam("password") String password) {
         PersonDTO person = personFacade.findPersonByLogin(login);
-            
+        System.out.println("mam login: "+ login);
+             
         if (person == null) {
             return "redirect:/";
         }
         PersonDTO authDTO = new PersonDTO();
         authDTO.setId(person.getId());
         authDTO.setPasswordHash(password);
-        
+        System.out.println("mam password: "+ password);
         if (personFacade.authenticate(authDTO)) {
-
+        System.out.println("mam login: "+ login + "A HESLO: " + password);
             session.setAttribute("authenticated", person);
             return "redirect:/home"; 
             

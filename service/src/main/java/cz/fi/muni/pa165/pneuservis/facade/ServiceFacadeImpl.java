@@ -1,7 +1,7 @@
 package cz.fi.muni.pa165.pneuservis.facade;
 
 import cz.fi.muni.pa165.pneuservis.dto.ServiceDTO;
-import cz.fi.muni.pa165.pneuservis.entity.Service;
+import cz.fi.muni.pa165.pneuservis.entity.Services;
 import cz.fi.muni.pa165.pneuservis.facade.ServiceFacade;
 import cz.fi.muni.pa165.pneuservis.exception.PneuservisPortalDataAccessException;
 import cz.fi.muni.pa165.pneuservis.services.BeanMappingService;
@@ -26,28 +26,28 @@ public class ServiceFacadeImpl implements ServiceFacade {
 
     @Override
     public Long create(ServiceDTO service) {
-        Service serviceEntity = beanMappingService.mapTo(service, Service.class);
+        Services serviceEntity = beanMappingService.mapTo(service, Services.class);
         return serviceService.create(serviceEntity);
     }
 
     @Override
     public Long delete(ServiceDTO service) {
-        return serviceService.delete(beanMappingService.mapTo(service, Service.class));
+        return serviceService.delete(beanMappingService.mapTo(service, Services.class));
     }
 
     @Override
     public Long update(ServiceDTO service) {
-        return serviceService.update(beanMappingService.mapTo(service, Service.class));
+        return serviceService.update(beanMappingService.mapTo(service, Services.class));
     }
 
     @Override
-    public ServiceDTO findById(long id) {
+    public ServiceDTO findById(Long id) {
         return beanMappingService.mapTo(serviceService.findById(id), ServiceDTO.class);
     }
 
     @Override
     public List<ServiceDTO> findByName(String name) {
-        List<Service> services = serviceService.findByName(name);
+        List<Services> services = serviceService.findByName(name);
         if (services == null){
             return null;
         }
@@ -58,7 +58,7 @@ public class ServiceFacadeImpl implements ServiceFacade {
 
     @Override
     public List<ServiceDTO> findAllServices() {
-        List<Service> services = serviceService.findAllServices();
+        List<Services> services = serviceService.findAllServices();
         if (services == null){
             return null;
         }

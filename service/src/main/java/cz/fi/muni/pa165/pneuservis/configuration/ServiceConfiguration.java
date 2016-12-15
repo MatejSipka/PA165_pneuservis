@@ -12,8 +12,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import cz.fi.muni.pa165.pneuservis.PersistenceSampleApplicationContext;
 import cz.fi.muni.pa165.pneuservis.entity.Person;
-import cz.fi.muni.pa165.pneuservis.entity.Service;
+import cz.fi.muni.pa165.pneuservis.entity.Services;
 import cz.fi.muni.pa165.pneuservis.entity.Tire;
+import cz.fi.muni.pa165.pneuservis.facade.OrderFacadeImpl;
+import cz.fi.muni.pa165.pneuservis.services.OrderServiceImpl;
 import org.dozer.loader.api.BeanMappingBuilder;
 
 /**
@@ -22,7 +24,8 @@ import org.dozer.loader.api.BeanMappingBuilder;
 
 @Configuration
 @Import(PersistenceSampleApplicationContext.class)
-@ComponentScan(basePackages = "cz.fi.muni.pa165.pneuservis")
+//@ComponentScan(basePackages = "cz.fi.muni.pa165.pneuservis")
+@ComponentScan(basePackageClasses={OrderServiceImpl.class, OrderFacadeImpl.class})
 public class ServiceConfiguration {
 
     @Bean
@@ -37,7 +40,7 @@ public class ServiceConfiguration {
         @Override
         protected void configure() {
             mapping(Person.class, PersonDTO.class);
-            mapping(Service.class, ServiceDTO.class);
+            mapping(Services.class, ServiceDTO.class);
             mapping(Tire.class, TireDTO.class);
             mapping(Order.class, CreateOrderDTO.class);
             mapping(Order.class, UpdateOrderDTO.class);

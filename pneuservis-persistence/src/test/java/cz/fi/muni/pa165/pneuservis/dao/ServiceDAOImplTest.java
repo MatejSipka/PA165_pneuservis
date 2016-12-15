@@ -6,7 +6,7 @@ package cz.fi.muni.pa165.pneuservis.dao;/*
 
 import cz.fi.muni.pa165.pneuservis.PersistenceSampleApplicationContext;
 import cz.fi.muni.pa165.pneuservis.dao.ServiceDAO;
-import cz.fi.muni.pa165.pneuservis.entity.Service;
+import cz.fi.muni.pa165.pneuservis.entity.Services;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,14 +41,14 @@ public class ServiceDAOImplTest extends AbstractTestNGSpringContextTests {
     @Autowired
     private ServiceDAO serviceDao;
 
-    private Service service1;
-    private Service service2;
+    private Services service1;
+    private Services service2;
 
     @BeforeMethod
     private void init(){
 
-        service1 = new Service();
-        service2 = new Service();
+        service1 = new Services();
+        service2 = new Services();
 
         service1.setDuration(5);
         service1.setNameOfService("Change of gear");
@@ -125,7 +125,7 @@ public class ServiceDAOImplTest extends AbstractTestNGSpringContextTests {
     public void findByIdTest(){
         serviceDao.create(service1);
         serviceDao.create(service2);
-        Service found = serviceDao.findById(service1.getId());
+        Services found = serviceDao.findById(service1.getId());
         Assert.assertEquals(found, service1);
         assertDeepEquals(found, service1);
     }
@@ -145,8 +145,8 @@ public class ServiceDAOImplTest extends AbstractTestNGSpringContextTests {
     public void findByNameTest(){
         serviceDao.create(service1);
         serviceDao.create(service2);
-        List<Service> found = serviceDao.findByName("Change of oil");
-        List<Service> found2 = serviceDao.findByName("do not exist");
+        List<Services> found = serviceDao.findByName("Change of oil");
+        List<Services> found2 = serviceDao.findByName("do not exist");
         Assert.assertEquals(found.size(), 1);
         assertDeepEquals(found.get(0), service2);
         Assert.assertEquals(found2.size(), 0);
@@ -156,10 +156,10 @@ public class ServiceDAOImplTest extends AbstractTestNGSpringContextTests {
     public void findAllTest(){
         serviceDao.create(service1);
         serviceDao.create(service2);
-        List<Service> services = serviceDao.findAllServices();
-        Assert.assertEquals(services.size(), 2);
-        assertDeepEquals(services.get(0), service1);
-        assertDeepEquals(services.get(1), service2);
+        List<Services> services2 = serviceDao.findAllServices();
+        Assert.assertEquals(services2.size(), 2);
+        assertDeepEquals(services2.get(0), service1);
+        assertDeepEquals(services2.get(1), service2);
     }
 
     @Test
@@ -177,7 +177,7 @@ public class ServiceDAOImplTest extends AbstractTestNGSpringContextTests {
         serviceDao.delete(null);
     }
 
-    private void assertDeepEquals(Service ser1, Service ser2){
+    private void assertDeepEquals(Services ser1, Services ser2){
         Assert.assertEquals(ser1.getDuration(), ser2.getDuration());
         Assert.assertEquals(ser1.getId(), ser2.getId());
         Assert.assertEquals(ser1.getNameOfService(), ser2.getNameOfService());

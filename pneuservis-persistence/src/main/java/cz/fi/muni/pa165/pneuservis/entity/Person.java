@@ -6,7 +6,7 @@
 package cz.fi.muni.pa165.pneuservis.entity;
 
 import cz.fi.muni.pa165.pneuservis.enums.PersonType;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 import javax.persistence.*;
@@ -21,7 +21,7 @@ public class Person {
 
     @NotNull
     @Temporal(TemporalType.DATE)
-    private Calendar DateOfBirth;
+    private Date DateOfBirth;
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
@@ -48,7 +48,7 @@ public class Person {
 
     }
 
-    public Person(String firstName, String surname, String login, String passwordHash, PersonType type, Calendar dateOfBirth) {
+    public Person(String firstName, String surname, String login, String passwordHash, PersonType type, Date dateOfBirth) {
         this.firstname = firstName;
         this.surname = surname;
         this.login = login;
@@ -89,11 +89,11 @@ public class Person {
         this.login = login;
     }
 
-    public Calendar getDateOfBirth() {
+    public Date getDateOfBirth() {
         return DateOfBirth;
     }
 
-    public void setDateOfBirth(Calendar DoB) {
+    public void setDateOfBirth(Date DoB) {
         this.DateOfBirth = DoB;
     }
 

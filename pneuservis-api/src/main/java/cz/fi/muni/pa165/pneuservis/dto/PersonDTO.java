@@ -7,7 +7,7 @@ package cz.fi.muni.pa165.pneuservis.dto;
 
 import cz.fi.muni.pa165.pneuservis.enums.PersonType;
 
-import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -16,7 +16,7 @@ import java.util.Objects;
  */
 public class PersonDTO {
     
-    private Calendar DateOfBirth;
+    private Date DateOfBirth;
 
     
     private Long id;
@@ -67,11 +67,11 @@ public class PersonDTO {
         this.login = login;
     }
 
-    public Calendar getDateOfBirth() {
+    public Date getDateOfBirth() {
         return DateOfBirth;
     }
 
-    public void setDateOfBirth(Calendar DoB) {
+    public void setDateOfBirth(Date DoB) {
         this.DateOfBirth = DoB;
     }
 

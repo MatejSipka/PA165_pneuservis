@@ -1,7 +1,7 @@
 package cz.fi.muni.pa165.pneuservis.services;
 
 import cz.fi.muni.pa165.pneuservis.dao.ServiceDAO;
-import cz.fi.muni.pa165.pneuservis.entity.Service;
+import cz.fi.muni.pa165.pneuservis.entity.Services;
 import cz.fi.muni.pa165.pneuservis.exception.PneuservisPortalDataAccessException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class ServiceServiceImpl implements ServiceService {
     private ServiceDAO serviceDAO;
 
     @Override
-    public Long create(Service service) {
+    public Long create(Services service) {
         try {
             return serviceDAO.create(service);
         } catch (ConstraintViolationException | IllegalArgumentException | NullPointerException | PersistenceException e){
@@ -31,7 +31,7 @@ public class ServiceServiceImpl implements ServiceService {
     }
 
     @Override
-    public Long delete(Service service) {
+    public Long delete(Services service) {
         try {
             return serviceDAO.delete(service);
         } catch (ConstraintViolationException | IllegalArgumentException | NullPointerException | PersistenceException e){
@@ -40,7 +40,7 @@ public class ServiceServiceImpl implements ServiceService {
     }
 
     @Override
-    public Long update(Service service) {
+    public Long update(Services service) {
         try {
             return serviceDAO.update(service);
         } catch (ConstraintViolationException | IllegalArgumentException | NullPointerException | PersistenceException e){
@@ -49,7 +49,7 @@ public class ServiceServiceImpl implements ServiceService {
     }
 
     @Override
-    public Service findById(Long id) {
+    public Services findById(Long id) {
         try {
            return serviceDAO.findById(id);
         } catch (IllegalArgumentException | NullPointerException | PersistenceException e){
@@ -58,7 +58,7 @@ public class ServiceServiceImpl implements ServiceService {
     }
 
     @Override
-    public List<Service> findByName(String name) {
+    public List<Services> findByName(String name) {
         try {
             return serviceDAO.findByName(name);
         } catch (IllegalArgumentException | NullPointerException | PersistenceException e){
@@ -67,7 +67,7 @@ public class ServiceServiceImpl implements ServiceService {
     }
 
     @Override
-    public List<Service> findAllServices() {
+    public List<Services> findAllServices() {
         try {
             return serviceDAO.findAllServices();
         } catch (IllegalArgumentException | NullPointerException | PersistenceException e){

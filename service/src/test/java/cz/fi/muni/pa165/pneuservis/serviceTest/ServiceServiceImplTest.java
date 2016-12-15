@@ -1,7 +1,7 @@
 package cz.fi.muni.pa165.pneuservis.serviceTest;
 
 import cz.fi.muni.pa165.pneuservis.dao.ServiceDAO;
-import cz.fi.muni.pa165.pneuservis.entity.Service;
+import cz.fi.muni.pa165.pneuservis.entity.Services;
 import cz.fi.muni.pa165.pneuservis.configuration.ServiceConfiguration;
 import cz.fi.muni.pa165.pneuservis.exception.PneuservisPortalDataAccessException;
 import cz.fi.muni.pa165.pneuservis.services.ServiceService;
@@ -41,15 +41,15 @@ public class ServiceServiceImplTest extends AbstractTestNGSpringContextTests {
         MockitoAnnotations.initMocks(this);
     }
 
-    private Service service1;
-    private Service service2;
-    private Service service3;
+    private Services service1;
+    private Services service2;
+    private Services service3;
 
     @BeforeMethod
     public void prepareTest() {
-        service1 = new Service();
-        service2 = new Service();
-        service3 = new Service();
+        service1 = new Services();
+        service2 = new Services();
+        service3 = new Services();
 
         service1.setDuration(5);
         service1.setNameOfService("change of oil");
@@ -115,7 +115,7 @@ public class ServiceServiceImplTest extends AbstractTestNGSpringContextTests {
     @Test
     public void findAllServicesTest() {
         when(serviceDAO.findAllServices()).thenReturn(Arrays.asList(service1, service2));
-        final List<Service> cars = serviceService.findAllServices();
+        final List<Services> cars = serviceService.findAllServices();
         Assert.assertNotNull(cars);
         Assert.assertEquals(2, cars.size());
     }
@@ -123,21 +123,21 @@ public class ServiceServiceImplTest extends AbstractTestNGSpringContextTests {
     @Test
     public void findServiceByName(){
         when(serviceDAO.findByName(service1.getNameOfService())).thenReturn(Arrays.asList(service1));
-        List<Service> services = serviceService.findByName(service1.getNameOfService());
+        List<Services> services = serviceService.findByName(service1.getNameOfService());
         Assert.assertEquals(service1, services.get(0));
     }
 
     @Test
     public void findServiceByWrongName(){
         when(serviceDAO.findByName("neexistujem")).thenReturn(null);
-        List<Service> services = serviceService.findByName("neexistujem");
+        List<Services> services = serviceService.findByName("neexistujem");
         Assert.assertEquals(null, services);
     }
 
     @Test
     public void updateServiceTest() {
         serviceService.update(service1);
-        verify(serviceDAO).update(any(Service.class));
+        verify(serviceDAO).update(any(Services.class));
     }
 
     @Test(expectedExceptions = PneuservisPortalDataAccessException.class)

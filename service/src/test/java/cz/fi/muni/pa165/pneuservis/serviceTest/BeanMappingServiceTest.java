@@ -2,7 +2,7 @@ package cz.fi.muni.pa165.pneuservis.serviceTest;
 
 import cz.fi.muni.pa165.pneuservis.dto.*;
 import cz.fi.muni.pa165.pneuservis.entity.Order;
-import cz.fi.muni.pa165.pneuservis.entity.Service;
+import cz.fi.muni.pa165.pneuservis.entity.Services;
 import cz.fi.muni.pa165.pneuservis.entity.Tire;
 import cz.fi.muni.pa165.pneuservis.enums.PaymentType;
 import cz.fi.muni.pa165.pneuservis.enums.TireManufacturer;
@@ -31,7 +31,7 @@ public class BeanMappingServiceTest extends AbstractTestNGSpringContextTests {
     @Autowired
     private BeanMappingService beanMappingService;
 
-    private Service service;
+    private Services service;
 
     private ServiceDTO serviceDTO;
 
@@ -54,7 +54,7 @@ public class BeanMappingServiceTest extends AbstractTestNGSpringContextTests {
     @BeforeClass
     public void setUp() {
 
-        service = new Service();
+        service = new Services();
         service.setDuration(5);
         service.setNameOfService("change of gear");
         service.setOwnParts(true);
@@ -74,7 +74,7 @@ public class BeanMappingServiceTest extends AbstractTestNGSpringContextTests {
         tireDTO.setCatalogNumber(12223);
         tireDTO.setTireSize(255);
 
-        List<Service> services = new ArrayList<>();
+        List<Services> services = new ArrayList<>();
         services.add(service);
         List<Tire> tires = new ArrayList<>();
         tires.add(tire);
@@ -133,7 +133,7 @@ public class BeanMappingServiceTest extends AbstractTestNGSpringContextTests {
     @Test
     public void serviceToServiceDTOTest() {
 
-        final Service result = beanMappingService.mapTo(serviceDTO, Service.class);
+        final Services result = beanMappingService.mapTo(serviceDTO, Services.class);
         Assert.assertNotNull(result);
         Assert.assertEquals(serviceDTO.getDuration(), result.getDuration());
         Assert.assertEquals(serviceDTO.getNameOfService(), result.getNameOfService());

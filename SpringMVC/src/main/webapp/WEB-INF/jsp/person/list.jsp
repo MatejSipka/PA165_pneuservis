@@ -21,19 +21,23 @@
         <caption>Person</caption>
         <thead>
         <tr>
-            <th>id</th>
-            <th>name</th>
-            <th>type</th>
+            <th>Id</th>
+            <th>Fist name</th>
+            <th>Surname</th>
+            <th>Type</th>
             <th>Date of birth</th>
+            <th>Login</th>
         </tr>
         </thead>
         <tbody>
         <c:forEach items="${persons}" var="person">
             <tr>
                 <td>${person.id}</td>
-                <td><c:out value="${person.name}"/></td>
-                <td><c:out value="${person.type}"/></td>
-                <td><fmt:formatDate value="${person.DateOfBirth}" pattern="yyyy-MM-dd"/></td>
+                <td><c:out value="${person.firstname}"/></td>
+                <td><c:out value="${person.surname}"/></td>
+                <td><c:out value="${person.personType}"/></td>
+                <td><fmt:formatDate value="${person.dateOfBirth}" pattern="dd-MM-yyyy"/></td>
+                <td><c:out value="${person.login}"/></td>
                 <td><my:a href="/person/view/${person.id}" class="btn btn-primary">View</my:a></td>
                 <c:if test="${not empty Admin}">
                     <td><my:a href="/person/edit/${person.id}" class="btn btn-primary">Edit</my:a></td>

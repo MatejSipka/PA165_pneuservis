@@ -1,7 +1,7 @@
 package cz.fi.muni.pa165.pneuservis.facadeTest;
 
 import cz.fi.muni.pa165.pneuservis.dto.ServiceDTO;
-import cz.fi.muni.pa165.pneuservis.entity.Service;
+import cz.fi.muni.pa165.pneuservis.entity.Services;
 import cz.fi.muni.pa165.pneuservis.facade.ServiceFacade;
 import cz.fi.muni.pa165.pneuservis.configuration.ServiceConfiguration;
 import cz.fi.muni.pa165.pneuservis.exception.PneuservisPortalDataAccessException;
@@ -48,8 +48,8 @@ public class ServiceFacadeImplTest extends AbstractTestNGSpringContextTests {
     @Autowired
     private BeanMappingService beanMappingService = new BeanMappingServiceImpl();
 
-    Service service1;
-    Service service2;
+    Services service1;
+    Services service2;
     ServiceDTO serviceDTO1;
 
     @BeforeClass
@@ -60,8 +60,8 @@ public class ServiceFacadeImplTest extends AbstractTestNGSpringContextTests {
     @BeforeMethod
     public void init(){
 
-        service1 = new Service();
-        service2 = new Service();
+        service1 = new Services();
+        service2 = new Services();
 
         service1.setId(1L);
         service1.setDuration(5);
@@ -90,7 +90,7 @@ public class ServiceFacadeImplTest extends AbstractTestNGSpringContextTests {
     public void createService() {
         when(serviceService.create(service1)).thenReturn(service1.getId());
         serviceFacade.create(serviceDTO1);
-        verify(serviceService).create(any(Service.class));
+        verify(serviceService).create(any(Services.class));
     }
 
     @Test
@@ -145,7 +145,7 @@ public class ServiceFacadeImplTest extends AbstractTestNGSpringContextTests {
     @Test
     public void updateTest() {
         serviceFacade.update(serviceDTO1);
-        verify(serviceService).update(any(Service.class));
+        verify(serviceService).update(any(Services.class));
     }
 
 

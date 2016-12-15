@@ -35,7 +35,7 @@ public interface ServiceFacade {
      * @param id of service
      * @return service with given id, if none is found, return null
      */
-    ServiceDTO findById(long id);
+    ServiceDTO findById(Long id);
 
     /**
      * Find service by its name

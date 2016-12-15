@@ -2,7 +2,7 @@ package cz.fi.muni.pa165.pneuservis.dao;
 
 import cz.fi.muni.pa165.pneuservis.PersistenceSampleApplicationContext;
 import cz.fi.muni.pa165.pneuservis.entity.Order;
-import cz.fi.muni.pa165.pneuservis.entity.Service;
+import cz.fi.muni.pa165.pneuservis.entity.Services;
 import cz.fi.muni.pa165.pneuservis.entity.Tire;
 import cz.fi.muni.pa165.pneuservis.enums.PaymentType;
 import cz.fi.muni.pa165.pneuservis.enums.TireManufacturer;
@@ -46,12 +46,12 @@ public class OrderDAOImplTest extends AbstractTestNGSpringContextTests {
     private Order order1;
     private Order order2;
 
-    private List<Service> services;
+    private List<Services> services;
     private List<Tire> tires;
 
     private Tire tire1;
 
-    private Service service1;
+    private Services service1;
 
     @BeforeMethod
     private void init() {
@@ -59,7 +59,7 @@ public class OrderDAOImplTest extends AbstractTestNGSpringContextTests {
         order1 = new Order();
         order2 = new Order();
 
-        services = new ArrayList<Service>();
+        services = new ArrayList<Services>();
         tires = new ArrayList<Tire>();
 
         tire1 = new Tire();
@@ -69,7 +69,7 @@ public class OrderDAOImplTest extends AbstractTestNGSpringContextTests {
         tire1.setPrice(new BigDecimal("100.0"));
         tire1.setTypeOfCar("Nákladní");
 
-        service1 = new Service();
+        service1 = new Services();
         service1.setDuration(50);
         service1.setNameOfService("Vymena pneu");
         service1.setPrice(new BigDecimal("100.0"));

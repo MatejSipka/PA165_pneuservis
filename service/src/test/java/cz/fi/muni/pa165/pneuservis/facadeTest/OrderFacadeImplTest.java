@@ -7,7 +7,7 @@ import cz.fi.muni.pa165.pneuservis.services.BeanMappingService;
 import cz.fi.muni.pa165.pneuservis.services.OrderBilling;
 import cz.fi.muni.pa165.pneuservis.dto.*;
 import cz.fi.muni.pa165.pneuservis.entity.Order;
-import cz.fi.muni.pa165.pneuservis.entity.Service;
+import cz.fi.muni.pa165.pneuservis.entity.Services;
 import cz.fi.muni.pa165.pneuservis.enums.PaymentType;
 import cz.fi.muni.pa165.pneuservis.facade.OrderFacade;
 import cz.fi.muni.pa165.pneuservis.configuration.ServiceConfiguration;
@@ -49,7 +49,7 @@ public class OrderFacadeImplTest extends AbstractTestNGSpringContextTests {
     private Order order2;
     private CreateOrderDTO newOrderDTO;
     private ServiceDTO serviceDTO;
-    private Service service1;
+    private Services service1;
     private List<Order> allOrders;
     private List<Order> clientOrders;
 
@@ -60,7 +60,7 @@ public class OrderFacadeImplTest extends AbstractTestNGSpringContextTests {
 
     @BeforeMethod
     public void prepareTest() throws ServiceException {
-        service1 = new Service();
+        service1 = new Services();
         service1.setId(1L);
         service1.setTypeOfCar("Audi");
         service1.setDuration(10);

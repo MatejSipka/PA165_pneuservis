@@ -17,6 +17,10 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import javax.sql.DataSource;
 
+import cz.fi.muni.pa165.pneuservis.dao.OrderDAO;
+import cz.fi.muni.pa165.pneuservis.dao.TireDAO;
+import cz.fi.muni.pa165.pneuservis.dao.ServiceDAO;
+import cz.fi.muni.pa165.pneuservis.dao.PersonDAO;
 
 /**
  *
@@ -26,7 +30,8 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories
-@ComponentScan("cz.fi.muni.pa165.pneuservis.dao")
+//@ComponentScan("cz.fi.muni.pa165.pneuservis.dao")
+@ComponentScan(basePackageClasses = {OrderDAO.class, TireDAO.class, ServiceDAO.class, PersonDAO.class})
 public class PersistenceSampleApplicationContext {
 
     @Bean

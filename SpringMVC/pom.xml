@@ -8,12 +8,13 @@
     <version>1.0-SNAPSHOT</version>
   </parent>
 
-    <groupId>cz.fi.muni.pa165.pneuservis</groupId>
+    <!--<groupId>cz.fi.muni.pa165.pneuservis</groupId>-->
     <artifactId>SpringMVC</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <name>Spring MVC</name>
+    <!--<version>1.0-SNAPSHOT</version>-->
     <packaging>war</packaging>
 
-    <name>Spring MVC</name>
+    
 <build>
         <defaultGoal>tomcat7:run</defaultGoal>
         <plugins>
@@ -64,8 +65,8 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
-            <version>4.1.8.RELEASE</version>
-            <type>jar</type>
+            <!--<version>4.1.8.RELEASE</version>-->
+            <!--<type>jar</type>-->
         </dependency>
 
         <!-- validator for bean properties -->

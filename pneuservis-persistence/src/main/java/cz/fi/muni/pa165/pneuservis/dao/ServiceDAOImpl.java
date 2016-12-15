@@ -5,7 +5,7 @@
  */
 package cz.fi.muni.pa165.pneuservis.dao;
 
-import cz.fi.muni.pa165.pneuservis.entity.Service;
+import cz.fi.muni.pa165.pneuservis.entity.Services;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -26,7 +26,7 @@ public class ServiceDAOImpl implements ServiceDAO {
     private EntityManager entityManager;
 
     @Override
-    public Long create(Service service) throws IllegalArgumentException {
+    public Long create(Services service) throws IllegalArgumentException {
         if (service == null || service.getNameOfService() == null || service.getDuration() <= 0){
             throw new IllegalArgumentException("Service must have a name and positive duration");
         }
@@ -38,7 +38,7 @@ public class ServiceDAOImpl implements ServiceDAO {
     }
 
     @Override
-    public Long delete(Service service) throws IllegalArgumentException{
+    public Long delete(Services service) throws IllegalArgumentException{
         if (service == null){
             throw new IllegalArgumentException("Cannot delete null service");
         }
@@ -47,7 +47,7 @@ public class ServiceDAOImpl implements ServiceDAO {
     }
 
     @Override
-    public Long update(Service service) throws IllegalArgumentException {
+    public Long update(Services service) throws IllegalArgumentException {
         if (service == null || service.getNameOfService() == null || service.getDuration() <= 0){
             throw new IllegalArgumentException("Service must have a name and positive duration");
         }
@@ -58,22 +58,22 @@ public class ServiceDAOImpl implements ServiceDAO {
     }
 
     @Override
-    public Service findById(Long id) throws IllegalArgumentException {
+    public Services findById(Long id) throws IllegalArgumentException {
         if (id == null){
             throw new IllegalArgumentException("id is null");
         }
-        return entityManager.find(Service.class, id);
+        return entityManager.find(Services.class, id);
     }
 
 
     @Override
-    public List<Service> findByName(String name) {
-        return entityManager.createQuery("SELECT service FROM Service service WHERE service.nameOfService LIKE :name",
-                Service.class).setParameter("name", name).getResultList();
+    public List<Services> findByName(String name) {
+        return entityManager.createQuery("SELECT service FROM Services service WHERE service.nameOfService LIKE :name",
+                Services.class).setParameter("name", name).getResultList();
     }
 
     @Override
-    public List<Service> findAllServices() {
-        return entityManager.createQuery("SELECT service FROM Service service", Service.class).getResultList();
+    public List<Services> findAllServices() {
+        return entityManager.createQuery("SELECT service FROM Services service", Services.class).getResultList();
     }
 }

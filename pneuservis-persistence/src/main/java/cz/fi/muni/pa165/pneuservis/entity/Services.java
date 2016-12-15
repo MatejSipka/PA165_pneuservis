@@ -17,7 +17,7 @@ import java.util.Objects;
  * @author Ivan Moscovic
  */
 @Entity
-public class Service {
+public class Services {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
@@ -48,7 +48,7 @@ public class Service {
     @Size(min=1, max=250)
     private String nameOfService;
 
-    public Service(int duration, boolean ownParts, String nameOfService,
+    public Services(int duration, boolean ownParts, String nameOfService,
                    BigDecimal price, String description, String typeOfCar) {
         this.duration = duration;
         this.ownParts = ownParts;
@@ -58,7 +58,7 @@ public class Service {
         this.typeOfCar = typeOfCar;
     }
 
-    public Service() {
+    public Services() {
     }
 
 
@@ -115,11 +115,11 @@ public class Service {
         if (this == o) {
             return true;
         }
-        if (o == null || !(o instanceof Service)) {
+        if (o == null || !(o instanceof Services)) {
             return false;
         }
 
-        final Service service = (Service) o;
+        final Services service = (Services) o;
 
         if (!Objects.equals(this.nameOfService, service.getNameOfService())) {
             return false;

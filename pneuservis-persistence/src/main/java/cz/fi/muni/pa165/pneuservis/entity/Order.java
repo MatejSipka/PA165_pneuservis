@@ -38,8 +38,8 @@ public class Order {
     private Long clientId;
 
     @NotNull
-    @OneToMany(targetEntity = Service.class, cascade = {CascadeType.ALL})
-    private List<Service> listOfServices;
+    @OneToMany(targetEntity = Services.class, cascade = {CascadeType.ALL})
+    private List<Services> listOfServices;
 
     @NotNull
     @OneToMany(targetEntity = Tire.class, cascade = {CascadeType.ALL})
@@ -54,7 +54,7 @@ public class Order {
 
     private PaymentType paymentType;
 
-    public Order(Long clientId, List<Service> listOfServices, List<Tire> listOfTires, String note, boolean paymentConfirmed, boolean shipped, PaymentType paymentType) {
+    public Order(Long clientId, List<Services> listOfServices, List<Tire> listOfTires, String note, boolean paymentConfirmed, boolean shipped, PaymentType paymentType) {
         this.clientId = clientId;
         this.listOfServices = listOfServices;
         this.listOfTires = listOfTires;
@@ -85,7 +85,7 @@ public class Order {
         this.clientId = clientId;
     }
 
-    public void addService(Service service) {
+    public void addService(Services service) {
         listOfServices.add(service);
     }
 
@@ -125,11 +125,11 @@ public class Order {
         this.paymentType = paymentType;
     }
 
-    public void setListOfServices(List<Service> listOfServices) {
+    public void setListOfServices(List<Services> listOfServices) {
         this.listOfServices = listOfServices;
     }
 
-    public List<Service> getListOfServices() {
+    public List<Services> getListOfServices() {
         return this.listOfServices;
     }
 

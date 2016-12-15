@@ -28,22 +28,22 @@
     <form:form method="post" action="${pageContext.request.contextPath}/person/create"
                modelAttribute="personCreate" cssClass="form-horizontal">
         
-        <div class="form-group ${type_error?'has-error':''}">
-                <form:label path="type" cssClass="col-sm-2 control-label">Type of person</form:label>
+        <div class="form-group ${personType_error?'has-error':''}">
+                <form:label path="personType" cssClass="col-sm-2 control-label">Type of person</form:label>
                     <div class="col-sm-1 typeRadio">
                         <label for="radioEmployee">
                             Employee
                         </label>
-                        <form:radiobutton path="type" id="radioEmployee" value="EMPLOYEE"/>
+                        <form:radiobutton path="personType" id="radioEmployee" value="EMPLOYEE"/>
                     </div>
                     <div class="col-sm-1 typeRadio">
                         <label for="radioClient">
                             Client
                         </label>
-                        <form:radiobutton path="type" id="radioClient" value="CLIENT"/>
+                        <form:radiobutton path="personType" id="radioClient" value="CLIENT"/>
                     </div>
                     <div class="col-sm-8">                        
-                        <form:errors path="type" cssClass="help-block"/>
+                        <form:errors path="personType" cssClass="help-block"/>
                     </div>
         </div>
         <div class="form-group ${firstname_error?'has-error':''}">
@@ -61,12 +61,12 @@
                 <form:errors path="surname" cssClass="help-block"/>
             </div>
         </div>
-        <div class="form-group ${DateOfBirth_error?'has-error':''}">
-            <form:label path="DateOfBirth" cssClass="col-sm-2 control-label">Date of birth</form:label>
+        <div class="form-group ${dateOfBirth_error?'has-error':''}">
+            <form:label path="dateOfBirth" cssClass="col-sm-2 control-label">Date of birth</form:label>
             <div class="col-sm-10">
-            <fmt:formatDate value="${person.DateOfBirth}" pattern="dd/MM/yyyy"/>
-                <form:input path="DateOfBirth" id="datepicker" class="date" cssClass="form-control"/>
-                <form:errors path="DateOfBirth" cssClass="help-block"/>
+            <fmt:formatDate value="${person.dateOfBirth}" pattern="dd/MM/yyyy"/>
+                <form:input path="dateOfBirth" id="datepicker" class="date" cssClass="form-control"/>
+                <form:errors path="dateOfBirth" cssClass="help-block"/>
             </div>
         </div>
         <div class="form-group ${login_error?'has-error':''}">
