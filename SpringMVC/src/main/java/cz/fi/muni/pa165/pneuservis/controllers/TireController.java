@@ -14,6 +14,7 @@ import cz.fi.muni.pa165.pneuservis.exception.PneuservisPortalDataAccessException
 import cz.fi.muni.pa165.pneuservis.facade.PersonFacade;
 import cz.fi.muni.pa165.pneuservis.facade.TireFacade;
 import javax.servlet.http.HttpSession;
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -102,9 +103,8 @@ public class TireController {
         TireDTO tire = tireFacade.findById(id);
         try {
             tireFacade.delete(tire);
-        } catch (PneuservisPortalDataAccessException e) {
-            redirectAttributes.addFlashAttribute("alert_delete", "Tire can not be deleted. Maybe it is in an order.");
-            return "redirect:" + uriBuilder.path("/tires/list").toUriString();
+        } catch (Exception e) {
+            return "redirect:/tires/list?deleteError";
         }
         redirectAttributes.addFlashAttribute("alert_success", "Tire successfully deleted.");
         return "redirect:" + uriBuilder.path("/tires/list").toUriString();

@@ -66,7 +66,7 @@ public class TireDAOImpl implements TireDAO {
         if (tire == null) {
             throw new IllegalArgumentException("Tire is null null!");
         }
-        em.remove(tire);
+        em.remove(em.contains(tire) ? tire : em.merge(tire));
     }
 
     @Override
