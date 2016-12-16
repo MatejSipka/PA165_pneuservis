@@ -1,7 +1,6 @@
 <%--
     Document   : list
-    Created on : 12-Dec-2016, 22:59:30
-    Author     : Maros Staurovsky
+    Author     : vit.holasek
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="utf-8" trimDirectiveWhitespaces="false" session="false" %>
@@ -13,7 +12,7 @@
 
 <my:pageTemplate title="Order">
 <jsp:attribute name="body">
-
+    <my:a href="/order/create" class="btn btn-primary">New Order</my:a>
     <table class="table">
         <caption>Orders</caption>
         <thead>
@@ -46,11 +45,11 @@
                     </c:otherwise>
                 </c:choose>
                 <td><my:a href="/order/${order.id}/view" class="btn btn-primary">View</my:a><span>
-                <my:a href="/order/${order.id}/billing/${order.id}" class="btn btn-primary">Billing</my:a>
+                <a href="/order/${order.id}/billing" target="_blank" class="btn btn-primary">Billing</a>
                 <c:if test="${not empty Admin}">
                     <my:a href="/order/${order.id}/edit/${order.id}" class="btn btn-primary">Edit</my:a>
 
-                        <form style="display:inline-block" method="post" action="${pageContext.request.contextPath}/orders/${order.id}/delete">
+                        <form style="display:inline-block" method="post" action="${pageContext.request.contextPath}/order/${order.id}/delete">
                             <button type="submit" class="btn btn-primary">Delete</button></form>
                 </c:if>
                 </span></td>
