@@ -15,7 +15,7 @@
 <my:pageTemplate title="Person view">
 <jsp:attribute name="body">
 
-    <c:if test="${authenticatedUser.admin == true}">
+    <c:if test="${not empty Admin}">
     <form method="post" action="${pageContext.request.contextPath}/person/delete/${person.id}">
         <button type="submit" class="btn btn-primary">Delete</button>
     <td><my:a href="/person/edit/${person.id}" class="btn btn-primary">Edit</my:a></td>
@@ -28,9 +28,13 @@
             <th>Id</th>
             <th>Fist name</th>
             <th>Surname</th>
+            <c:if test="${not empty Admin}">
             <th>Type</th>
+            </c:if>
             <th>Date of birth(dd-mm-yyyy)</th>
+            <c:if test="${not empty Admin}">
             <th>Login</th>
+            </c:if>
         </tr>
         </thead>
         <tbody>
@@ -38,9 +42,13 @@
                 <td>${person.id}</td>
                 <td><c:out value="${person.firstname}"/></td>
                 <td><c:out value="${person.surname}"/></td>
+                <c:if test="${not empty Admin}">
                 <td><c:out value="${person.personType}"/></td>
+                </c:if>
                 <td><fmt:formatDate value="${person.dateOfBirth}" pattern="dd-MM-yyyy"/></td>
+                <c:if test="${not empty Admin}">
                 <td><c:out value="${person.login}"/></td>
+                </c:if>
             </tr>
         </tbody>
     </table>

@@ -24,9 +24,13 @@
             <th>Id</th>
             <th>Fist name</th>
             <th>Surname</th>
+            <c:if test="${not empty Admin}">
             <th>Type</th>
-            <th>Date of birth (dd-mm-yyyy)</th>
+            </c:if>
+            <th>Date of birth(dd-mm-yyyy)</th>
+            <c:if test="${not empty Admin}">
             <th>Login</th>
+            </c:if>
         </tr>
         </thead>
         <tbody>
@@ -35,9 +39,13 @@
                 <td>${person.id}</td>
                 <td><c:out value="${person.firstname}"/></td>
                 <td><c:out value="${person.surname}"/></td>
+                <c:if test="${not empty Admin}">
                 <td><c:out value="${person.personType}"/></td>
+                </c:if>
                 <td><fmt:formatDate value="${person.dateOfBirth}" pattern="dd-MM-yyyy"/></td>
+                <c:if test="${not empty Admin}">
                 <td><c:out value="${person.login}"/></td>
+                </c:if>
                 <td><my:a href="/person/view/${person.id}" class="btn btn-primary">View</my:a></td>
                 <c:if test="${not empty Admin}">
                     <td><my:a href="/person/edit/${person.id}" class="btn btn-primary">Edit</my:a></td>
