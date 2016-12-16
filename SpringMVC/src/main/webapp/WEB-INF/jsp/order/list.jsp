@@ -13,7 +13,7 @@
 
 <my:pageTemplate title="Order">
 <jsp:attribute name="body">
-
+    <my:a href="/order/create" class="btn btn-primary">New Order</my:a>
     <table class="table">
         <caption>Orders</caption>
         <thead>
