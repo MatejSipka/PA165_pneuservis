@@ -35,7 +35,19 @@
                 <form:errors path="paymentType" cssClass="help-block"/>
             </div>
         </div>
-
+        <c:if test="${not empty Admin}">
+        <div class="form-group ${clientId_error?'has-error':''}">
+            <form:label path="clientId" cssClass="col-sm-2 control-label">Payment Type</form:label>
+            <div class="col-sm-10">
+                <form:select path="paymentType" cssClass="form-control">
+                    <c:forEach items="${paymentTypeValues}" var="value">
+                        <form:option value="${value}"></form:option>
+                    </c:forEach>
+                </form:select>
+                <form:errors path="paymentType" cssClass="help-block"/>
+            </div>
+        </div>
+        </c:if>
         <button class="btn btn-primary" type="submit">Confirm</button>
     </form:form>
     <br/>

@@ -87,6 +87,7 @@ public class OrderController {
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String create(Model model){
+
         CreateOrderDTO order = new CreateOrderDTO();
         model.addAttribute("order", order);
         model.addAttribute("paymentTypeValues", PaymentType.values());
@@ -100,6 +101,14 @@ public class OrderController {
                                Model model,
                                RedirectAttributes redirectAttributes,
                                UriComponentsBuilder uriBuilder){
+        PersonDTO person = PersonDTO.class.cast(session.getAttribute("authenticated"));
+        if (person != null) {
+            if (personFacade.findById(person.getId()).getPersonType() == EMPLOYEE) {
+                model.addAttribute("Admin", person.getLogin());
+            } else {
+                model.addAttribute("User", person.getLogin());
+            }
+        }
         CreateOrderDTO tmpOrder = CreateOrderDTO.class.cast(session.getAttribute("tmpOrder"));
         if (bindingResult.hasErrors()) {
             for (FieldError fe : bindingResult.getFieldErrors()) {
@@ -111,8 +120,11 @@ public class OrderController {
         }
         tmpOrder.setPaymentType(order.getPaymentType());
         tmpOrder.setNote(order.getNote());
-        PersonDTO person = PersonDTO.class.cast(session.getAttribute("authenticated"));
-        tmpOrder.setClientId(person.getId());
+        if (personFacade.findById(person.getId()).getPersonType() == EMPLOYEE && order.getClientId() != null) {
+            tmpOrder.setClientId(order.getClientId());
+        } else {
+            tmpOrder.setClientId(person.getId());
+        }
         OrderDTO orderDTO = orderFacade.create(tmpOrder);
         session.setAttribute("tmpOrder", null);
         redirectAttributes.addFlashAttribute("alert_success", "Order " + orderDTO.getId() + " was created");
@@ -136,6 +148,14 @@ public class OrderController {
 
     @RequestMapping(value = "/create/services/{id}", method = RequestMethod.POST)
     public String createAddService(@PathVariable long id, Model model){
+        PersonDTO person = PersonDTO.class.cast(session.getAttribute("authenticated"));
+        if (person != null) {
+            if (personFacade.findById(person.getId()).getPersonType() == EMPLOYEE) {
+                model.addAttribute("Admin", person.getLogin());
+            } else {
+                model.addAttribute("User", person.getLogin());
+            }
+        }
         CreateOrderDTO tmpOrder = CreateOrderDTO.class.cast(session.getAttribute("tmpOrder"));
         ServiceDTO service = serviceFacade.findById(id);
         if (tmpOrder.getListOfServices() == null) tmpOrder.setListOfServices(new ArrayList<>());
@@ -151,6 +171,14 @@ public class OrderController {
                                    Model model,
                                    RedirectAttributes redirectAttributes,
                                    UriComponentsBuilder uriBuilder){
+        PersonDTO person = PersonDTO.class.cast(session.getAttribute("authenticated"));
+        if (person != null) {
+            if (personFacade.findById(person.getId()).getPersonType() == EMPLOYEE) {
+                model.addAttribute("Admin", person.getLogin());
+            } else {
+                model.addAttribute("User", person.getLogin());
+            }
+        }
         CreateOrderDTO tmpOrder = CreateOrderDTO.class.cast(session.getAttribute("tmpOrder"));
         tmpOrder.setPaymentType(order.getPaymentType());
         tmpOrder.setNote(order.getNote());
@@ -187,6 +215,14 @@ public class OrderController {
 
     @RequestMapping(value = "/create/tires/{id}", method = RequestMethod.POST)
     public String createAddTire(@PathVariable long id, Model model){
+        PersonDTO person = PersonDTO.class.cast(session.getAttribute("authenticated"));
+        if (person != null) {
+            if (personFacade.findById(person.getId()).getPersonType() == EMPLOYEE) {
+                model.addAttribute("Admin", person.getLogin());
+            } else {
+                model.addAttribute("User", person.getLogin());
+            }
+        }
         TireDTO tire = tireFacade.findById(id);
         CreateOrderDTO tmpOrder = CreateOrderDTO.class.cast(session.getAttribute("tmpOrder"));
         if (tmpOrder.getListOfTires() == null) tmpOrder.setListOfTires(new ArrayList<>());
@@ -202,6 +238,14 @@ public class OrderController {
                                       Model model,
                                       RedirectAttributes redirectAttributes,
                                       UriComponentsBuilder uriBuilder){
+        PersonDTO person = PersonDTO.class.cast(session.getAttribute("authenticated"));
+        if (person != null) {
+            if (personFacade.findById(person.getId()).getPersonType() == EMPLOYEE) {
+                model.addAttribute("Admin", person.getLogin());
+            } else {
+                model.addAttribute("User", person.getLogin());
+            }
+        }
         CreateOrderDTO tmpOrder = CreateOrderDTO.class.cast(session.getAttribute("tmpOrder"));
         tmpOrder.setPaymentType(order.getPaymentType());
         tmpOrder.setNote(order.getNote());
