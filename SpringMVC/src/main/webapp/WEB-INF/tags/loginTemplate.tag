@@ -37,6 +37,7 @@
     <!-- page title -->
     <c:if test="${not empty title}">
         <div class="page-header">
+            <img class="centerImage" src="${pageContext.request.contextPath}/logo.png" height="100" width="200" border="0"/><br>
             <h1><c:out value="${title}"/></h1>
         </div>
     </c:if>
@@ -53,3 +54,10 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </body>
 </html>
+
+<style type="text/css">
+    .centerImage
+    {
+        display:block;
+    }
+</style>

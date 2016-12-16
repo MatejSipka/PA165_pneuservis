@@ -9,12 +9,8 @@ import cz.fi.muni.pa165.pneuservis.dto.PersonDTO;
 import static cz.fi.muni.pa165.pneuservis.enums.PersonType.EMPLOYEE;
 
 import cz.fi.muni.pa165.pneuservis.dto.ServiceDTO;
-import cz.fi.muni.pa165.pneuservis.dto.TireDTO;
-import cz.fi.muni.pa165.pneuservis.enums.TireManufacturer;
-import cz.fi.muni.pa165.pneuservis.enums.TireType;
 import cz.fi.muni.pa165.pneuservis.facade.PersonFacade;
 import javax.servlet.http.HttpSession;
-import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 
 import cz.fi.muni.pa165.pneuservis.facade.ServiceFacade;
@@ -158,7 +154,8 @@ public class ServiceController {
                 model.addAttribute("User", person.getLogin());
             }
         }
-        //todo
+        model.addAttribute("serviceId",id);
+        model.addAttribute("serviceCreate", serviceFacade.findById(id));
         return "service/edit";
     }
 

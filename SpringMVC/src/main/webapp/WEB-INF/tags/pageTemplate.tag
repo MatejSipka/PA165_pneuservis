@@ -82,6 +82,7 @@
     <!-- page title -->
     <c:if test="${not empty title}">
         <div class="page-header">
+            <img class="centerImage" src="${pageContext.request.contextPath}/logo.png" height="100" width="200" border="0"/><br>
             <h1><c:out value="${title}"/></h1>
         </div>
     </c:if>
