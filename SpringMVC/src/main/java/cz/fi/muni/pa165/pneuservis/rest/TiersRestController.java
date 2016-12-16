@@ -14,7 +14,6 @@ import java.util.List;
 /**
  * Created by Matej Sipka on 16.12.2016.
  */
-
 @RestController
 @RequestMapping("/pa165/rest/tires")
 public class TiersRestController {
@@ -22,7 +21,6 @@ public class TiersRestController {
     @Inject
     private TireFacade tireFacade;
 
-    
     @RequestMapping(value = "", method = RequestMethod.GET, headers = "Accept=application/json",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<TireDTO> get() {
@@ -62,12 +60,13 @@ public class TiersRestController {
     public final ResponseEntity<TireDTO> put(@PathVariable long id, @RequestBody TireDTO tire) {
         TireDTO result = tireFacade.findById(id);
         if (result == null) {
-            // IF WE ASSUME THAT PUT IS ONLY FOR HE UPDATE (NOT CREATE)
+            // IF WE ASSUME THAT PUT IS ONLY FOR THE UPDATE (NOT CREATE)
             throw new BadRequestException();
-        } else {
-            tire.setId(id);
-            tireFacade.update(tire);
         }
+
+        tire.setId(id);
+        tireFacade.update(tire);
+
         return new ResponseEntity(tireFacade.findById(id), HttpStatus.CREATED);
     }
 }
