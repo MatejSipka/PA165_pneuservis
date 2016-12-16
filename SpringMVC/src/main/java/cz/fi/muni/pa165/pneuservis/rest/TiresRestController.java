@@ -16,7 +16,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/pa165/rest/tires")
-public class TiersRestController {
+public class TiresRestController {
 
     @Inject
     private TireFacade tireFacade;
