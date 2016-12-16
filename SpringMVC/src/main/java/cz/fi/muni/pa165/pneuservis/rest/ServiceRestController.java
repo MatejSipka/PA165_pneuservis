@@ -30,6 +30,10 @@ public class ServiceRestController {
     @Inject
     private ServiceFacade serviceFacade;
 
+    /**
+     * list all services
+     * @return all serviceDTO objects stored in db
+     */
     @RequestMapping(value = "",
             method = RequestMethod.GET,
             headers = "Accept=application/json",
@@ -39,11 +43,17 @@ public class ServiceRestController {
         return serviceFacade.findAllServices();
     }
 
+    /**
+     * create service
+     * @param serviceDTO object to be created
+     * @return responseEntity if was successfully created
+     * @throws Exception
+     */
     @RequestMapping(value = "",
-            method = RequestMethod.POST,
-            headers = "Accept=application/json",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+                    method = RequestMethod.POST,
+                    headers = "Accept=application/json",
+                    consumes = MediaType.APPLICATION_JSON_VALUE,
+                    produces = MediaType.APPLICATION_JSON_VALUE)
     public final ResponseEntity<ServiceDTO> post(@RequestBody ServiceDTO serviceDTO) throws Exception {
         log.debug("rest service.create()");
         try {
@@ -54,11 +64,18 @@ public class ServiceRestController {
         }
     }
 
+    /**
+     * find service
+     * @param id of service
+     * @return - service if found
+     * @throws Exception
+     */
     @RequestMapping(value = "/{id}",
-            method = RequestMethod.GET,
-            headers = "Accept=application/json",
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public final ServiceDTO get(@Pattern(regexp = "^[0-9]+$", message = "Invalid id!") @NotNull @PathVariable("id") long id) throws Exception {
+                    method = RequestMethod.GET,
+                    headers = "Accept=application/json",
+                    produces = MediaType.APPLICATION_JSON_VALUE)
+    public final ServiceDTO get(@Pattern(regexp = "^[0-9]+$", message = "Invalid id!") @NotNull @PathVariable("id") long id)
+            throws Exception {
         log.debug("rest service.findById({})", id);
         ServiceDTO serviceDTO = serviceFacade.findById(id);
         if (serviceDTO != null) {
@@ -68,11 +85,18 @@ public class ServiceRestController {
         }
     }
 
+    /**
+     * update service
+     * @param id of service to be updated
+     * @param serviceDTO new object that replace old
+     * @return response entity
+     * @throws Exception
+     */
     @RequestMapping(value = "/{id}",
-            method = RequestMethod.PUT,
-            headers = "Accept=application/json",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+                    method = RequestMethod.PUT,
+                    headers = "Accept=application/json",
+                    consumes = MediaType.APPLICATION_JSON_VALUE,
+                    produces = MediaType.APPLICATION_JSON_VALUE)
     public final ResponseEntity<ServiceDTO> put(@Pattern(regexp = "^[0-9]+$", message = "Invalid id!") @NotNull @PathVariable("id") long id,
                                   @RequestBody ServiceDTO serviceDTO) throws Exception {
         log.debug("rest service.update({})", id);
@@ -86,10 +110,16 @@ public class ServiceRestController {
         }
     }
 
+    /**
+     * delete service
+     * @param id of service to be deleted
+     * @return response entity
+     * @throws Exception
+     */
     @RequestMapping(value = "/{id}",
-            method = RequestMethod.DELETE,
-            headers = "Accept=application/json",
-            produces = MediaType.APPLICATION_JSON_VALUE)
+                    method = RequestMethod.DELETE,
+                    headers = "Accept=application/json",
+                    produces = MediaType.APPLICATION_JSON_VALUE)
     public final ResponseEntity delete(@Pattern(regexp = "^[0-9]+$", message = "Invalid id!") @NotNull @PathVariable("id") long id) throws Exception {
         log.debug("rest service.delete({})", id);
         ServiceDTO serviceDTO = serviceFacade.findById(id);

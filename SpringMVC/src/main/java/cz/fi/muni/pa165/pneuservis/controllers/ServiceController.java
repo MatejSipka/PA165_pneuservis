@@ -129,7 +129,7 @@ public class ServiceController {
         } catch (Exception e) {
             System.out.println(model.containsAttribute("fail"));
             model.addAttribute("fail", "yes");
-            return "service/list";
+            return "redirect:/service/list?deleteError";
         }
 
         redirectAttributes.addFlashAttribute("alert_success", "Service successfully deleted.");
