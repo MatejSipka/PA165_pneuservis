@@ -1,9 +1,7 @@
 <%--
-  Created by IntelliJ IDEA.
-  User: Peeve
-  Date: 16.12.2016
-  Time: 12:16
-  To change this template use File | Settings | File Templates.
+    Document   : create
+    Created on : 16-Dec-2016, 12:18:12
+    Author     : Ivan Moscovic
 --%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="utf-8" trimDirectiveWhitespaces="false" session="false" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="my" %>

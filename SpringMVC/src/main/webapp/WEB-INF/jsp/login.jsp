@@ -22,6 +22,7 @@
                     <label for="inputPassword" class="sr-only">Password</label>
                     <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
                     <button class="btn btn-lg btn-primary btn-block" name="submit" type="submit">Sign in</button>
+                    <my:a href="/createNewAccount" class="btn btn-primary">New Account</my:a>
                 </form>
     </div>   
 
