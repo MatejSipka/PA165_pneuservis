@@ -6,12 +6,13 @@
 package cz.fi.muni.pa165.pneuservis.dao;
 
 import cz.fi.muni.pa165.pneuservis.entity.Order;
-import java.math.BigDecimal;
+import cz.fi.muni.pa165.pneuservis.entity.Services;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
+import cz.fi.muni.pa165.pneuservis.entity.Tire;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -30,6 +31,18 @@ public class OrderDAOImpl implements OrderDAO {
         if (order == null
                 || order.getClientId() == null) {
             throw new IllegalArgumentException("Order must have a clientID, some ordered products and the price cannot be negative");
+        }
+        if (order.getListOfServices() != null) {
+            for (Services service : order.getListOfServices()
+                    ) {
+                if (!em.contains(service)) em.merge(service);
+            }
+        }
+        if (order.getListOfTires() != null) {
+            for (Tire tire : order.getListOfTires()
+                    ) {
+                if (!em.contains(tire)) em.merge(tire);
+            }
         }
         em.persist(order);
     }

@@ -70,15 +70,15 @@
          <caption>Ordered Services</caption>
          <thead>
          <tr>
-             <th>Description</th>
-             <th>Duration</th>
+             <th>Name</th>
+             <th>Duration (Hours)</th>
              <th>Price</th>
          </tr>
          </thead>
          <tbody>
          <c:forEach items="${order.listOfServices}" var="service">
             <tr>
-                <td><c:out value="${service.description}"/></td>
+                <td><c:out value="${service.nameOfService}"/></td>
                 <td><c:out value="${service.duration}"/></td>
                 <td><c:out value="${service.price}"/></td>
             </tr>
@@ -92,14 +92,16 @@
         <caption>Ordered Tires</caption>
         <thead>
         <tr>
-            <th>Description</th>
+            <th>Type</th>
+            <th>Catalog Number</th>
             <th>Price</th>
         </tr>
         </thead>
         <tbody>
         <c:forEach items="${order.listOfTires}" var="tire">
             <tr>
-                <td><c:out value="${tire.description}"/></td>
+                <td><c:out value="${tire.type}"/></td>
+                <td><c:out value="${tire.catalogNumber}"/></td>
                 <td><c:out value="${tire.price}"/></td>
             </tr>
         </c:forEach>
