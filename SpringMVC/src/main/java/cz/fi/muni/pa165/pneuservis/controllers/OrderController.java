@@ -1,5 +1,6 @@
 package cz.fi.muni.pa165.pneuservis.controllers;
 
+import cz.fi.muni.pa165.pneuservis.dto.OrderBillingDTO;
 import cz.fi.muni.pa165.pneuservis.dto.OrderDTO;
 import cz.fi.muni.pa165.pneuservis.dto.PersonDTO;
 import cz.fi.muni.pa165.pneuservis.facade.OrderFacade;
@@ -84,5 +85,21 @@ public class OrderController {
 
         redirectAttributes.addFlashAttribute("alert_success", "Order successfully deleted.");
         return "redirect:" + uriBuilder.path("/order/list").toUriString();
+    }
+
+    @RequestMapping(value = "{id}/billing", method = RequestMethod.GET)
+    public String billing(@PathVariable long id, Model model) {
+        OrderDTO order = orderFacade.findOrderById(id);
+        PersonDTO person = PersonDTO.class.cast(session.getAttribute("authenticated"));
+        if (person != null) {
+            if (personFacade.findById(person.getId()).getPersonType() != EMPLOYEE && order.getClientId() != person.getId()) {
+                throw new ForbiddenException();
+            }
+        }
+        OrderBillingDTO billing = orderFacade.getOrderBilling(id);
+        model.addAttribute("billing", billing);
+        model.addAttribute("person", person);
+        model.addAttribute("order", order);
+        return "order/billing";
     }
 }
