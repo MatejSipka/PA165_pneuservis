@@ -14,7 +14,7 @@
 <my:pageTemplate title="Order View">
 <jsp:attribute name="body">
 
-    <a href="/order/${order.id}/billing" target="_blank" class="btn btn-primary">Billing</a>
+    <a href="${pageContext.request.contextPath}/order/${order.id}/billing" target="_blank" class="btn btn-primary">Billing</a>
     <c:if test="${not empty Admin}"><span>
     <form style="display:inline-block" method="post" action="${pageContext.request.contextPath}/order/${order.id}/delete">
         <button type="submit" class="btn btn-primary">Delete</button>

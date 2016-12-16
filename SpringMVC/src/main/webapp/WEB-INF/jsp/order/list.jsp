@@ -45,7 +45,7 @@
                     </c:otherwise>
                 </c:choose>
                 <td><my:a href="/order/${order.id}/view" class="btn btn-primary">View</my:a><span>
-                <a href="/order/${order.id}/billing" target="_blank" class="btn btn-primary">Billing</a>
+                <a href="${pageContext.request.contextPath}/order/${order.id}/billing" target="_blank" class="btn btn-primary">Billing</a>
                 <c:if test="${not empty Admin}">
                     <my:a href="/order/${order.id}/edit" class="btn btn-primary">Edit</my:a>
 
