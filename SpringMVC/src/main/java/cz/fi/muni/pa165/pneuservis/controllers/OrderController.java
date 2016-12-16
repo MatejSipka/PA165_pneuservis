@@ -13,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpSession;
 
@@ -70,5 +72,17 @@ public class OrderController {
         model.addAttribute("person", person);
         model.addAttribute("order", order);
         return "order/view";
+    }
+
+    @RequestMapping(value = "{id}/delete", method = RequestMethod.POST)
+    public String delete(@PathVariable long id,
+                         Model model,
+                         UriComponentsBuilder uriBuilder,
+                         RedirectAttributes redirectAttributes) {
+        OrderDTO order = orderFacade.findOrderById(id);
+        if (order != null) orderFacade.delete(order);
+
+        redirectAttributes.addFlashAttribute("alert_success", "Order successfully deleted.");
+        return "redirect:" + uriBuilder.path("/order/list").toUriString();
     }
 }
