@@ -11,7 +11,7 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<my:pageTemplate title="New person">
+<my:loginTemplate title="New person">
     <jsp:attribute name="body">
         <c:if test="${not empty NewUser}">
         <form:form method="post" action="${pageContext.request.contextPath}/createNewAccount"
@@ -62,4 +62,4 @@
          </form:form>
         </c:if>
     </jsp:attribute>
-</my:pageTemplate>
+</my:loginTemplate>
