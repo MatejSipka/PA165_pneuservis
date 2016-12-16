@@ -68,12 +68,14 @@ public class OrderDAOImplTest extends AbstractTestNGSpringContextTests {
         tire1.setDiameter(255);
         tire1.setPrice(new BigDecimal("100.0"));
         tire1.setTypeOfCar("Nákladní");
+        em.persist(tire1);
 
         service1 = new Services();
         service1.setDuration(50);
         service1.setNameOfService("Vymena pneu");
         service1.setPrice(new BigDecimal("100.0"));
         service1.setTypeOfCar("Osobní");
+        em.persist(service1);
 
         tires.add(tire1);
         services.add(service1);
