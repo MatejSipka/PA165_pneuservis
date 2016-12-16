@@ -10,15 +10,7 @@ import cz.fi.muni.pa165.pneuservis.enums.PaymentType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -31,18 +23,19 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
+    @Column(name="ORDER_ID")
     private Long id;
 
     @NotNull
     @Column(nullable = false)
     private Long clientId;
 
-    @NotNull
-    @OneToMany(targetEntity = Services.class, cascade = {CascadeType.ALL})
+    @ManyToMany(cascade=CascadeType.MERGE)
+    @JoinTable(name="ORDER_SERVICE", joinColumns=@JoinColumn(name="ORDER_ID"), inverseJoinColumns=@JoinColumn(name="SERVICE_ID"))
     private List<Services> listOfServices;
 
-    @NotNull
-    @OneToMany(targetEntity = Tire.class, cascade = {CascadeType.ALL})
+    @ManyToMany(cascade=CascadeType.MERGE)
+    @JoinTable(name="ORDER_TIRE", joinColumns=@JoinColumn(name="ORDER_ID"), inverseJoinColumns=@JoinColumn(name="TIRE_ID"))
     private List<Tire> listOfTires;
 
     @Basic(optional = true)

@@ -134,7 +134,7 @@ public class OrderController {
         OrderDTO orderDTO = orderFacade.create(tmpOrder);
         session.setAttribute("tmpOrder", null);
         redirectAttributes.addFlashAttribute("alert_success", "Order " + orderDTO.getId() + " was created");
-        return "redirect:" + uriBuilder.path("/order/view/{id}").buildAndExpand(orderDTO.getId()).encode().toUriString();
+        return "redirect:" + uriBuilder.path("/order/{id}/view").buildAndExpand(orderDTO.getId()).encode().toUriString();
     }
 
     @RequestMapping(value = "/create/services", method = RequestMethod.POST)

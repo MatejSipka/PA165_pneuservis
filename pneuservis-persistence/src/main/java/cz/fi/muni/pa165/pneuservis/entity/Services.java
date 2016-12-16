@@ -21,6 +21,7 @@ public class Services {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
+    @Column(name="SERVICE_ID")
     private Long id;
 
     private String description;

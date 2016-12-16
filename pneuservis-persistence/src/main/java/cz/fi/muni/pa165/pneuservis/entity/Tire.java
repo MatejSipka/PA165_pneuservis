@@ -22,6 +22,7 @@ public class Tire {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
+    @Column(name="TIRE_ID")
     private Long id;
     
     @NotNull
