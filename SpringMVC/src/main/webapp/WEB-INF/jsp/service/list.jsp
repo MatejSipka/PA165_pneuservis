@@ -43,6 +43,11 @@
                         <form method="post" action="${pageContext.request.contextPath}/service/delete/${service.id}">
                             <button type="submit" class="btn btn-primary">Delete</button></form>
                     </td>
+                    <c:if test="${not empty fail}">
+                        <div style="border: solid 1px red; background-color: yellow; padding: 10px">
+                            <c:out value="${fail}"/>
+                        </div>
+                    </c:if>
                 </c:if>
             </tr>
         </c:forEach>

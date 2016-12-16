@@ -9,8 +9,12 @@ import cz.fi.muni.pa165.pneuservis.dto.PersonDTO;
 import static cz.fi.muni.pa165.pneuservis.enums.PersonType.EMPLOYEE;
 
 import cz.fi.muni.pa165.pneuservis.dto.ServiceDTO;
+import cz.fi.muni.pa165.pneuservis.dto.TireDTO;
+import cz.fi.muni.pa165.pneuservis.enums.TireManufacturer;
+import cz.fi.muni.pa165.pneuservis.enums.TireType;
 import cz.fi.muni.pa165.pneuservis.facade.PersonFacade;
 import javax.servlet.http.HttpSession;
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 
 import cz.fi.muni.pa165.pneuservis.facade.ServiceFacade;
@@ -52,12 +56,6 @@ public class ServiceController {
     public String list(Model model) {
         log.debug("services.findAll()");
         model.addAttribute("services", serviceFacade.findAllServices());
-
-//        ServiceDTO ser = serviceFacade.findById(1L);
-////        System.out.println("");
-////        System.out.println("DOSLO: "+ser.getNameOfService() + "  " + ser.hasOwnParts());
-////        System.out.println("");
-        
         PersonDTO person = PersonDTO.class.cast(session.getAttribute("authenticated"));
         if (person != null) {
             if (personFacade.findById(person.getId()).getPersonType() == EMPLOYEE) {
@@ -70,7 +68,7 @@ public class ServiceController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public String create(Model model){
+    public String create(Model model) {
         log.debug("services.create() GET Request");
         model.addAttribute("serviceCreate", new ServiceDTO());
 
@@ -90,7 +88,7 @@ public class ServiceController {
                          BindingResult bindingResult,
                          Model model,
                          RedirectAttributes redirectAttributes,
-                         UriComponentsBuilder uriBuilder){
+                         UriComponentsBuilder uriBuilder) {
         log.debug("service.create() GET Request", serviceDTO);
 
         if (bindingResult.hasErrors()) {
@@ -125,14 +123,18 @@ public class ServiceController {
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-    public String delete(@PathVariable long id,
-                         Model model,
-                         UriComponentsBuilder uriBuilder,
+    public String delete(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder,
                          RedirectAttributes redirectAttributes) {
         log.debug("services");
         ServiceDTO serviceDTO = serviceFacade.findById(id);
 
-        serviceFacade.delete(serviceDTO);
+        try {
+            serviceFacade.delete(serviceDTO);
+        } catch (Exception e) {
+            System.out.println(model.containsAttribute("fail"));
+            model.addAttribute("fail", "yes");
+            return "service/list";
+        }
 
         redirectAttributes.addFlashAttribute("alert_success", "Service successfully deleted.");
         return "redirect:" + uriBuilder.path("/service/list").toUriString();
@@ -144,4 +146,39 @@ public class ServiceController {
         model.addAttribute("service", serviceFacade.findById(id));
         return "service/view";
     }
+
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    public String edit(@PathVariable long id, Model model) {
+
+        PersonDTO person = PersonDTO.class.cast(session.getAttribute("authenticated"));
+        if (person != null) {
+            if (personFacade.findById(person.getId()).getPersonType() == EMPLOYEE) {
+                model.addAttribute("Admin", person.getLogin());
+            } else {
+                model.addAttribute("User", person.getLogin());
+            }
+        }
+        //todo
+        return "service/edit";
+    }
+
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
+    public String edit(@Valid @ModelAttribute("serviceCreate") ServiceDTO serviceDTO,
+                       BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes,
+                       UriComponentsBuilder uriBuilder) {
+        if (bindingResult.hasErrors()) {
+            for (ObjectError ge : bindingResult.getGlobalErrors()) {
+                log.trace("ObjectError: {}", ge);
+            }
+            for (FieldError fe : bindingResult.getFieldErrors()) {
+                model.addAttribute(fe.getField() + "_error", true);
+                log.trace("FieldError: {}", fe);
+            }
+            return "service/edit";
+        }
+        long id = serviceFacade.update(serviceDTO);
+        redirectAttributes.addFlashAttribute("alert_success", "Service " + id + " has been updated.");
+        return "redirect:" + uriBuilder.path("/service/list").toUriString();
+    }
 }
+

@@ -135,7 +135,7 @@ public class TireController {
                 model.addAttribute(fe.getField() + "_error", true);
                 log.trace("FieldError: {}", fe);
             }
-            return "tires/ecit";
+            return "tires/edit";
         }
 
         tireFacade.update(tireDTO);
