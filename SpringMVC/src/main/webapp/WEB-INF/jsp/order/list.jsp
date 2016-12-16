@@ -47,7 +47,7 @@
                 <td><my:a href="/order/${order.id}/view" class="btn btn-primary">View</my:a><span>
                 <a href="/order/${order.id}/billing" target="_blank" class="btn btn-primary">Billing</a>
                 <c:if test="${not empty Admin}">
-                    <my:a href="/order/${order.id}/edit/${order.id}" class="btn btn-primary">Edit</my:a>
+                    <my:a href="/order/${order.id}/edit" class="btn btn-primary">Edit</my:a>
 
                         <form style="display:inline-block" method="post" action="${pageContext.request.contextPath}/order/${order.id}/delete">
                             <button type="submit" class="btn btn-primary">Delete</button></form>

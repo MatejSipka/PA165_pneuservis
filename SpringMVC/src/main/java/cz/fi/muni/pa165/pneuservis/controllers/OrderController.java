@@ -6,9 +6,8 @@ import cz.fi.muni.pa165.pneuservis.facade.OrderFacade;
 import cz.fi.muni.pa165.pneuservis.facade.PersonFacade;
 import cz.fi.muni.pa165.pneuservis.facade.ServiceFacade;
 import cz.fi.muni.pa165.pneuservis.facade.TireFacade;
+import cz.fi.muni.pa165.pneuservis.rest.exceptions.BadRequestException;
 import cz.fi.muni.pa165.pneuservis.rest.exceptions.ForbiddenException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -87,7 +86,14 @@ public class OrderController {
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String create(Model model){
-
+        PersonDTO person = PersonDTO.class.cast(session.getAttribute("authenticated"));
+        if (person != null) {
+            if (personFacade.findById(person.getId()).getPersonType() == EMPLOYEE) {
+                model.addAttribute("Admin", person.getLogin());
+            } else {
+                model.addAttribute("User", person.getLogin());
+            }
+        }
         CreateOrderDTO order = new CreateOrderDTO();
         model.addAttribute("order", order);
         model.addAttribute("paymentTypeValues", PaymentType.values());
@@ -274,6 +280,44 @@ public class OrderController {
         if (order != null) orderFacade.delete(order);
 
         redirectAttributes.addFlashAttribute("alert_success", "Order successfully deleted.");
+        return "redirect:" + uriBuilder.path("/order/list").toUriString();
+    }
+
+    @RequestMapping(value = "{id}/edit", method = RequestMethod.GET)
+    public String edit(@PathVariable long id, Model model) {
+
+        PersonDTO person = PersonDTO.class.cast(session.getAttribute("authenticated"));
+        if (person != null) {
+            if (personFacade.findById(person.getId()).getPersonType() == EMPLOYEE) {
+                model.addAttribute("Admin", person.getLogin());
+            } else {
+                model.addAttribute("User", person.getLogin());
+            }
+        }
+        OrderDTO order = orderFacade.findOrderById(id);
+        model.addAttribute("order", orderFacade.findOrderById(id));
+        model.addAttribute("paymentTypeValues", PaymentType.values());
+        return "order/edit";
+    }
+
+    @RequestMapping(value = "{id}/edit", method = RequestMethod.POST)
+    public String edit(@Valid @ModelAttribute("serviceCreate") UpdateOrderDTO order,
+                       BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes,
+                       UriComponentsBuilder uriBuilder) {
+        if (bindingResult.hasErrors()) {
+            for (ObjectError ge : bindingResult.getGlobalErrors()) {
+            }
+            for (FieldError fe : bindingResult.getFieldErrors()) {
+                model.addAttribute(fe.getField() + "_error", true);
+            }
+            return "order/edit";
+        }
+        OrderDTO orderToUpdate = orderFacade.findOrderById(order.getId());
+        if (orderToUpdate == null) throw new BadRequestException();
+        order.setListOfServices(orderToUpdate.getListOfServices());
+        order.setListOfTires(orderToUpdate.getListOfTires());
+        orderFacade.update(order);
+        redirectAttributes.addFlashAttribute("alert_success", "Service " + order.getId() + " has been updated.");
         return "redirect:" + uriBuilder.path("/order/list").toUriString();
     }
 

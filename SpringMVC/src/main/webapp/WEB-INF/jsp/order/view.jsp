@@ -16,9 +16,9 @@
 
     <a href="/order/${order.id}/billing" target="_blank" class="btn btn-primary">Billing</a>
     <c:if test="${not empty Admin}"><span>
-    <form style="display:inline-block" method="post" action="${pageContext.request.contextPath}/order/delete/${person.id}">
+    <form style="display:inline-block" method="post" action="${pageContext.request.contextPath}/order/${order.id}/delete">
         <button type="submit" class="btn btn-primary">Delete</button>
-        <td><my:a href="/order/edit/${person.id}" class="btn btn-primary">Edit</my:a></td>
+        <td><my:a href="/order/${order.id}/edit" class="btn btn-primary">Edit</my:a></td>
     </form></span>
     </c:if>
     </br>

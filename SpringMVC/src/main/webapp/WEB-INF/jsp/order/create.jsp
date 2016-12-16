@@ -37,14 +37,10 @@
         </div>
         <c:if test="${not empty Admin}">
         <div class="form-group ${clientId_error?'has-error':''}">
-            <form:label path="clientId" cssClass="col-sm-2 control-label">Payment Type</form:label>
+            <form:label path="clientId" cssClass="col-sm-2 control-label">Client ID</form:label>
             <div class="col-sm-10">
-                <form:select path="paymentType" cssClass="form-control">
-                    <c:forEach items="${paymentTypeValues}" var="value">
-                        <form:option value="${value}"></form:option>
-                    </c:forEach>
-                </form:select>
-                <form:errors path="paymentType" cssClass="help-block"/>
+                <form:input path="clientId" cssClass="form-control"/>
+                <form:errors path="clientId" cssClass="help-block"/>
             </div>
         </div>
         </c:if>
