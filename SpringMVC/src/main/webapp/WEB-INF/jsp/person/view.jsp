@@ -16,11 +16,16 @@
 <jsp:attribute name="body">
 
     <c:if test="${not empty Admin}">
-    <form method="post" action="${pageContext.request.contextPath}/person/delete/${person.id}">
+    <form method="post" action="${pageContext.request.contextPath}/person/delete/${person.id}/${Admin}">
         <button type="submit" class="btn btn-primary">Delete</button>
+    </c:if>
+    <c:if test="${not empty User}">
+    <form method="post" action="${pageContext.request.contextPath}/person/delete/${person.id}/${User}">
+        <button type="submit" class="btn btn-primary">Delete</button>
+    </c:if>
     <td><my:a href="/person/edit/${person.id}" class="btn btn-primary">Edit</my:a></td>
     </form>
-    </c:if>
+    
 
     <table class="table">
         <thead>

@@ -119,17 +119,24 @@ public class PersonController {
         return "person/view";
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-    public String delete(@PathVariable long id,
+    @RequestMapping(value = "/delete/{id}/{Admin}", method = RequestMethod.POST)
+    public String delete(@PathVariable long id,@PathVariable String Admin,
                          Model model,
                          UriComponentsBuilder uriBuilder,
                          RedirectAttributes redirectAttributes) {
-        log.debug("person.");
+        log.debug("person.delete");
         PersonDTO person = personFacade.findById(id);
+        PersonDTO logged = personFacade.findPersonByLogin(Admin);
         personFacade.delete(person);
 
         redirectAttributes.addFlashAttribute("alert_success", "Person successfully deleted.");
-        return "redirect:" + uriBuilder.path("/person/list").toUriString();
+        if (person.getId() == logged.getId())
+        {
+            return "redirect:" + uriBuilder.path("/logout/logout").toUriString();
+        }else{
+            return "redirect:" + uriBuilder.path("/person/list").toUriString();
+        }
+        
     }
     
     
@@ -162,7 +169,7 @@ public class PersonController {
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-    public String save(@Valid @ModelAttribute("mushroom") PersonDTO formBean, @PathVariable("id") Long id, BindingResult bindingResult,
+    public String save(@Valid @ModelAttribute("person") PersonDTO formBean, @PathVariable("id") Long id, BindingResult bindingResult,
                          Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
         formBean.setId(id);
 //        if (formBean.getDateOfBirth().getTime() == NULL)

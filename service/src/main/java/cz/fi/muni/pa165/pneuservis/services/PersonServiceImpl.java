@@ -46,6 +46,7 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public Person update(Person person) {
         try {
+                person.setPasswordHash(createHash(person.getPasswordHash()));
                return personDao.update(person);
         } catch (ConstraintViolationException | PersistenceException | NullPointerException| IllegalArgumentException ex) {
             throw new PneuservisPortalDataAccessException("cannot update person", ex);

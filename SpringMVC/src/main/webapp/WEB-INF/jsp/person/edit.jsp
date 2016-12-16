@@ -24,7 +24,7 @@
         </script>
     </jsp:attribute>
     <jsp:attribute name="body">
-    <c:if test="${not empty Admin}">   
+    <%--<c:if test="${not empty Admin}">--%>   
     <form:form method="post" action="${pageContext.request.contextPath}/person/edit/${data.id}"
            modelAttribute="person" cssClass="form-horizontal">
         
@@ -97,9 +97,6 @@
         </div>
         <button class="btn btn-primary" type="submit">Edit person</button>
 </form:form>
-    </c:if>
-    <c:if test="${not empty User}">   
-        This page is off limits for you!
-    </c:if>
+    <%--</c:if>--%>
     </jsp:attribute>
 </my:pageTemplate>

@@ -13,6 +13,9 @@
 
 <my:pageTemplate title="Person">
 <jsp:attribute name="body">
+    <c:if test="${not empty User}">
+        This page is off limits for you!
+    </c:if>
     <c:if test="${not empty Admin}">
     <my:a href="/person/create" class="btn btn-primary"> New person</my:a>
     </c:if>
@@ -50,7 +53,7 @@
                 <c:if test="${not empty Admin}">
                     <td><my:a href="/person/edit/${person.id}" class="btn btn-primary">Edit</my:a></td>
                     <td>
-                        <form method="post" action="${pageContext.request.contextPath}/person/delete/${person.id}">
+                        <form method="post" action="${pageContext.request.contextPath}/person/delete/${person.id}/${Admin}">
                         <button type="submit" class="btn btn-primary">Delete</button></form>
                     </td>
                 </c:if>
