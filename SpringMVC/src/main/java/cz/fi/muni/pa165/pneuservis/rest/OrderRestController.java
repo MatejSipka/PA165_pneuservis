@@ -64,11 +64,12 @@ public class OrderRestController {
             method = RequestMethod.PUT,
             headers = "Accept=application/json",
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public final ResponseEntity put(@PathVariable long id, @RequestBody UpdateOrderDTO order) {
+    public final ResponseEntity<OrderDTO> put(@PathVariable long id, @RequestBody UpdateOrderDTO order) {
+        order.setId(id);
         OrderDTO gatheredOrder = orderFacade.findOrderById(id);
         if (gatheredOrder == null) throw new BadRequestException();
         orderFacade.update(order);
-        return new ResponseEntity(HttpStatus.CREATED);
+        return new ResponseEntity(orderFacade.findOrderById(id), HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/{id}",
