@@ -8,6 +8,7 @@ package cz.fi.muni.pa165.pneuservis.controllers;
 import cz.fi.muni.pa165.pneuservis.dto.PersonDTO;
 import static cz.fi.muni.pa165.pneuservis.enums.PersonType.EMPLOYEE;
 import cz.fi.muni.pa165.pneuservis.facade.PersonFacade;
+import java.util.Objects;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.slf4j.Logger;
@@ -130,7 +131,7 @@ public class PersonController {
         personFacade.delete(person);
 
         redirectAttributes.addFlashAttribute("alert_success", "Person successfully deleted.");
-        if (person.getId() == logged.getId())
+        if (Objects.equals(person.getId(), logged.getId()))
         {
             return "redirect:" + uriBuilder.path("/logout/logout").toUriString();
         }else{
@@ -143,7 +144,7 @@ public class PersonController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String view(Model model, @PathVariable("id") Long id) {
         model.addAttribute("person", personFacade.findById(id));
-        return "person/view";
+        return "redirect:/person/view/" + personFacade.findById(id).getId();
     }
     
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
@@ -176,6 +177,11 @@ public class PersonController {
 //        {
 //            
 //        }
+        if (formBean.getPasswordHash().isEmpty())
+        {
+            String passwordHash = personFacade.findById(id).getPasswordHash();
+            formBean.setPasswordHash(passwordHash);
+        }
         return view(model, personFacade.update(formBean).getId());
     }
 
