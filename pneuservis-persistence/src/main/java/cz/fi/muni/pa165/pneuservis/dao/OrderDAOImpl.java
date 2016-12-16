@@ -40,7 +40,7 @@ public class OrderDAOImpl implements OrderDAO {
             throw new IllegalArgumentException("Cannot delete null order");
         }
         if (order.getId() == null) throw new IllegalArgumentException("Cannot delete order with null id.");
-        em.remove(order);
+        em.remove(em.contains(order) ? order : em.merge(order));
     }
 
     @Override

@@ -50,7 +50,7 @@
                 <c:if test="${not empty Admin}">
                     <my:a href="/order/${order.id}/edit/${order.id}" class="btn btn-primary">Edit</my:a>
 
-                        <form style="display:inline-block" method="post" action="${pageContext.request.contextPath}/orders/${order.id}/delete">
+                        <form style="display:inline-block" method="post" action="${pageContext.request.contextPath}/order/${order.id}/delete">
                             <button type="submit" class="btn btn-primary">Delete</button></form>
                 </c:if>
                 </span></td>
