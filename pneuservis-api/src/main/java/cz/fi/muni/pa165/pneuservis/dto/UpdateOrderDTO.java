@@ -4,6 +4,7 @@ import cz.fi.muni.pa165.pneuservis.enums.PaymentType;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * @author vit.holasek on 24.11.2016.
@@ -13,9 +14,9 @@ public class UpdateOrderDTO {
 
     private Long clientId;
 
-    private List<ServiceDTO> listOfServices;
+    private Set<ServiceDTO> services;
 
-    private List<TireDTO> listOfTires;
+    private Set<TireDTO> tires;
 
     private String note;
 
@@ -25,11 +26,11 @@ public class UpdateOrderDTO {
 
     private boolean shipped;
 
-    public UpdateOrderDTO(Long id, Long clientId, List<ServiceDTO> listOfServices, List<TireDTO> listOfTires, String note, PaymentType paymentType, boolean paymentConfirmed, boolean shipped) {
+    public UpdateOrderDTO(Long id, Long clientId, Set<ServiceDTO> services, Set<TireDTO> tires, String note, PaymentType paymentType, boolean paymentConfirmed, boolean shipped) {
         this.id = id;
         this.clientId = clientId;
-        this.listOfServices = listOfServices;
-        this.listOfTires = listOfTires;
+        this.services = services;
+        this.tires = tires;
         this.note = note;
         this.paymentType = paymentType;
         this.paymentConfirmed = paymentConfirmed;
@@ -54,20 +55,20 @@ public class UpdateOrderDTO {
         this.clientId = clientId;
     }
 
-    public List<ServiceDTO> getListOfServices() {
-        return listOfServices;
+    public Set<ServiceDTO> getServices() {
+        return services;
     }
 
-    public void setListOfServices(List<ServiceDTO> listOfServices) {
-        this.listOfServices = listOfServices;
+    public void setServices(Set<ServiceDTO> services) {
+        this.services = services;
     }
 
-    public List<TireDTO> getListOfTires() {
-        return listOfTires;
+    public Set<TireDTO> getTires() {
+        return tires;
     }
 
-    public void setListOfTires(List<TireDTO> listOfTires) {
-        this.listOfTires = listOfTires;
+    public void setTires(Set<TireDTO> tires) {
+        this.tires = tires;
     }
 
     public String getNote() {
@@ -111,14 +112,14 @@ public class UpdateOrderDTO {
                 getShipped() == that.getShipped() &&
                 Objects.equals(getId(), that.getId()) &&
                 Objects.equals(getClientId(), that.getClientId()) &&
-                Objects.equals(getListOfServices(), that.getListOfServices()) &&
-                Objects.equals(getListOfTires(), that.getListOfTires()) &&
+                Objects.equals(getServices(), that.getServices()) &&
+                Objects.equals(getTires(), that.getTires()) &&
                 Objects.equals(getNote(), that.getNote()) &&
                 getPaymentType() == that.getPaymentType();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getClientId(), getListOfServices(), getListOfTires(), getNote(), getPaymentType(), getPaymentConfirmed(), getShipped());
+        return Objects.hash(getId(), getClientId(), getServices(), getTires(), getNote(), getPaymentType(), getPaymentConfirmed(), getShipped());
     }
 }

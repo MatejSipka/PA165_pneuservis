@@ -60,7 +60,7 @@
          </tr>
          </thead>
          <tbody>
-         <c:forEach items="${order.listOfServices}" var="service">
+         <c:forEach items="${order.services}" var="service">
             <tr>
                 <td><c:out value="${service.nameOfService}"/></td>
                 <td><c:out value="${service.duration}"/></td>
@@ -87,7 +87,7 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${order.listOfTires}" var="tire">
+        <c:forEach items="${order.tires}" var="tire">
             <tr>
                 <td><c:out value="${tire.type}"/></td>
                 <td><c:out value="${tire.catalogNumber}"/></td>

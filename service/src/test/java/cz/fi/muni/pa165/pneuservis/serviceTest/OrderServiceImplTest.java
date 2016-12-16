@@ -97,9 +97,9 @@ public class OrderServiceImplTest extends AbstractTestNGSpringContextTests {
         order1.setPaymentType(PaymentType.COD);
         order1.setClientId(1L);
         order1.setNote("Test");
-        order1.getListOfTires().add(tire1);
-        order1.getListOfTires().add(tire2);
-        order1.getListOfServices().add(service1);
+        order1.getTires().add(tire1);
+        order1.getTires().add(tire2);
+        order1.getServices().add(service1);
 
         order2 = new Order();
         order2.setId(2L);
@@ -108,7 +108,7 @@ public class OrderServiceImplTest extends AbstractTestNGSpringContextTests {
         order2.setPaymentType(PaymentType.CARD);
         order2.setClientId(2L);
         order2.setNote("Test1");
-        order2.getListOfServices().add(service1);
+        order2.getServices().add(service1);
 
         order3 = new Order();
         order3.setId(8L);
@@ -117,7 +117,7 @@ public class OrderServiceImplTest extends AbstractTestNGSpringContextTests {
         order3.setPaymentType(PaymentType.CARD);
         order3.setClientId(2L);
         order3.setNote("Test1");
-        order3.getListOfTires().add(tire2);
+        order3.getTires().add(tire2);
 
         invalidOrder = new Order();
 

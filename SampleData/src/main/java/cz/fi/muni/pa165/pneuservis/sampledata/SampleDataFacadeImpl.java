@@ -19,10 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import cz.fi.muni.pa165.pneuservis.services.*;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  *
@@ -65,16 +62,16 @@ public class SampleDataFacadeImpl implements SampleDataFacade{
         Person customer = createPerson("Adam", "Fero", "xFero", "12345", PersonType.CLIENT, date1);
         Person employee = createPerson("Peter", "Marian", "xMarian", "14789", PersonType.EMPLOYEE, date2);
 
-        List<Services> services = Arrays.asList(service1, service2);
-        List<Tire> tires1 = Arrays.asList(tire1, tire2);
-        List<Tire> tires2 = Arrays.asList(tire1);
+        Set<Services> services = new HashSet<>(Arrays.asList(service1, service2));
+        Set<Tire> tires1 = new HashSet<>(Arrays.asList(tire1, tire2));
+        Set<Tire> tires2 = new HashSet<>(Arrays.asList(tire1));
         Order order1 = createOrder(customer, services, tires1, "my order", false, false, PaymentType.CARD);
 //        Order order2 = createOrder(customer, services, tires2, "my order2", false, true, PaymentType.TRANSFER);
     }
     
-    private Order createOrder(Person person, List <Services> listOfServices,List<Tire> listOfTires,
-            String note, boolean paymentConfirmed,boolean shipped, PaymentType paymentType){     
-        return orderService.findOrderById(orderService.create(new Order(person.getId(),listOfServices,listOfTires,note,paymentConfirmed,shipped,paymentType)).getId());
+    private Order createOrder(Person person, Set<Services> services, Set<Tire> tires,
+                              String note, boolean paymentConfirmed, boolean shipped, PaymentType paymentType){
+        return orderService.findOrderById(orderService.create(new Order(person.getId(),services,tires,note,paymentConfirmed,shipped,paymentType)).getId());
     }
     
     private Tire createTire (TireType type, int catalogSize,int tireSize, int diameter,TireManufacturer manufacturer, BigDecimal price,String description, String typeOfCar){

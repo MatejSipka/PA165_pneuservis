@@ -4,6 +4,7 @@ import cz.fi.muni.pa165.pneuservis.enums.PaymentType;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  *  @author vit.holasek on 24.11.2016.
@@ -12,41 +13,41 @@ public class CreateOrderDTO {
 
     private Long clientId;
 
-    private List<ServiceDTO> listOfServices;
+    private Set<ServiceDTO> services;
 
-    private List<TireDTO> listOfTires;
+    private Set<TireDTO> tires;
 
     private String note;
 
     private PaymentType PaymentType;
 
-    public CreateOrderDTO(Long clientId, List<ServiceDTO> listOfServices, String note, PaymentType paymentType) {
+    public CreateOrderDTO(Long clientId, Set<ServiceDTO> services, String note, PaymentType paymentType) {
         this.clientId = clientId;
-        this.listOfServices = listOfServices;
+        this.services = services;
         this.note = note;
         PaymentType = paymentType;
     }
 
     public CreateOrderDTO() { }
 
-    public CreateOrderDTO(List<ServiceDTO> listOfServices) {
-        this.listOfServices = listOfServices;
+    public CreateOrderDTO(Set<ServiceDTO> services) {
+        this.services = services;
     }
 
-    public List<ServiceDTO> getListOfServices() {
-        return listOfServices;
+    public Set<ServiceDTO> getServices() {
+        return services;
     }
 
-    public void setListOfServices(List<ServiceDTO> listOfServices) {
-        this.listOfServices = listOfServices;
+    public void setServices(Set<ServiceDTO> services) {
+        this.services = services;
     }
 
-    public List<TireDTO> getListOfTires() {
-        return listOfTires;
+    public Set<TireDTO> getTires() {
+        return tires;
     }
 
-    public void setListOfTires(List<TireDTO> listOfTires) {
-        this.listOfTires = listOfTires;
+    public void setTires(Set<TireDTO> tires) {
+        this.tires = tires;
     }
 
     public cz.fi.muni.pa165.pneuservis.enums.PaymentType getPaymentType() {

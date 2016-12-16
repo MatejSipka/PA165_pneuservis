@@ -97,11 +97,11 @@ public class OrderServiceImpl implements OrderService {
             if (order == null) return null;
 
             List<BillingItem> items = new ArrayList<>();
-            items.addAll(order.getListOfServices().stream()
+            items.addAll(order.getServices().stream()
                     .map(service -> new BillingItem(service.getDescription(), vat, service.getPrice(),
                             countPriceWithVAT(service.getPrice())))
                     .collect(Collectors.toList()));
-            items.addAll(order.getListOfTires().stream()
+            items.addAll(order.getTires().stream()
                     .map(tire -> new BillingItem(tire.getDescription(), vat, tire.getPrice(),
                             countPriceWithVAT(tire.getPrice())))
                     .collect(Collectors.toList()));

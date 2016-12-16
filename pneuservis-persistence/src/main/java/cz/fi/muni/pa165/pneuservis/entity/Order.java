@@ -7,9 +7,7 @@ package cz.fi.muni.pa165.pneuservis.entity;
 
 import cz.fi.muni.pa165.pneuservis.enums.PaymentType;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -32,11 +30,11 @@ public class Order {
 
     @ManyToMany(cascade=CascadeType.MERGE)
     @JoinTable(name="ORDER_SERVICE", joinColumns=@JoinColumn(name="ORDER_ID"), inverseJoinColumns=@JoinColumn(name="SERVICE_ID"))
-    private List<Services> listOfServices;
+    private Set<Services> services;
 
     @ManyToMany(cascade=CascadeType.MERGE)
     @JoinTable(name="ORDER_TIRE", joinColumns=@JoinColumn(name="ORDER_ID"), inverseJoinColumns=@JoinColumn(name="TIRE_ID"))
-    private List<Tire> listOfTires;
+    private Set<Tire> tires;
 
     @Basic(optional = true)
     private String note;
@@ -47,10 +45,10 @@ public class Order {
 
     private PaymentType paymentType;
 
-    public Order(Long clientId, List<Services> listOfServices, List<Tire> listOfTires, String note, boolean paymentConfirmed, boolean shipped, PaymentType paymentType) {
+    public Order(Long clientId, Set<Services> services, Set<Tire> tires, String note, boolean paymentConfirmed, boolean shipped, PaymentType paymentType) {
         this.clientId = clientId;
-        this.listOfServices = listOfServices;
-        this.listOfTires = listOfTires;
+        this.services = services;
+        this.tires = tires;
         this.note = note;
         this.paymentConfirmed = paymentConfirmed;
         this.shipped = shipped;
@@ -58,8 +56,8 @@ public class Order {
     }
 
     public Order() {
-        listOfTires = new ArrayList<>();
-        listOfServices = new ArrayList<>();
+        tires = new HashSet<>();
+        services = new HashSet<>();
     }
 
     public Long getId() {
@@ -79,11 +77,11 @@ public class Order {
     }
 
     public void addService(Services service) {
-        listOfServices.add(service);
+        services.add(service);
     }
 
     public void addTire(Tire tire) {
-        listOfTires.add(tire);
+        tires.add(tire);
     }
 
     public String getNote() {
@@ -118,20 +116,20 @@ public class Order {
         this.paymentType = paymentType;
     }
 
-    public void setListOfServices(List<Services> listOfServices) {
-        this.listOfServices = listOfServices;
+    public void setServices(Set<Services> services) {
+        this.services = services;
     }
 
-    public List<Services> getListOfServices() {
-        return this.listOfServices;
+    public Set<Services> getServices() {
+        return this.services;
     }
 
-    public void setListOfTires(List<Tire> listOfTires) {
-        this.listOfTires = listOfTires;
+    public void setTires(Set<Tire> tires) {
+        this.tires = tires;
     }
 
-    public List<Tire> getListOfTires() {
-        return this.listOfTires;
+    public Set<Tire> getTires() {
+        return this.tires;
     }
 
     @Override

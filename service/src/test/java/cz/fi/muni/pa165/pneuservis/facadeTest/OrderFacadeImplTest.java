@@ -24,6 +24,7 @@ import org.testng.annotations.Test;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import static org.mockito.Matchers.any;
@@ -76,7 +77,7 @@ public class OrderFacadeImplTest extends AbstractTestNGSpringContextTests {
         order1.setPaymentType(PaymentType.COD);
         order1.setClientId(1L);
         order1.setNote("Test");
-        order1.getListOfServices().add(service1);
+        order1.getServices().add(service1);
 
         order2 = new Order();
         order2.setId(2L);
@@ -85,7 +86,7 @@ public class OrderFacadeImplTest extends AbstractTestNGSpringContextTests {
         order2.setPaymentType(PaymentType.CARD);
         order2.setClientId(2L);
         order2.setNote("Test1");
-        order2.getListOfServices().add(service1);
+        order2.getServices().add(service1);
 
         serviceDTO = new ServiceDTO();
         serviceDTO.setId(1L);
@@ -100,9 +101,9 @@ public class OrderFacadeImplTest extends AbstractTestNGSpringContextTests {
         newOrderDTO.setPaymentType(PaymentType.CARD);
         newOrderDTO.setClientId(2L);
         newOrderDTO.setNote("Test1");
-        newOrderDTO.setListOfServices(new ArrayList<>());
-        newOrderDTO.setListOfTires(new ArrayList<>());
-        newOrderDTO.getListOfServices().add(serviceDTO);
+        newOrderDTO.setServices(new HashSet<>());
+        newOrderDTO.setTires(new HashSet<>());
+        newOrderDTO.getServices().add(serviceDTO);
 
         allOrders = new ArrayList<>();
         allOrders.add(order1);
@@ -128,8 +129,8 @@ public class OrderFacadeImplTest extends AbstractTestNGSpringContextTests {
         Assert.assertNotNull(captor.getValue());
         Order capturedOrder = captor.getValue();
         Assert.assertEquals(capturedOrder.getClientId(), newOrderDTO.getClientId());
-        Assert.assertNotNull(capturedOrder.getListOfServices());
-        Assert.assertEquals(capturedOrder.getListOfServices().size(), newOrderDTO.getListOfServices().size());
+        Assert.assertNotNull(capturedOrder.getServices());
+        Assert.assertEquals(capturedOrder.getServices().size(), newOrderDTO.getServices().size());
     }
 
     @Test

@@ -4,6 +4,7 @@ import cz.fi.muni.pa165.pneuservis.enums.PaymentType;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * @author vit.holasek on 23.11.2016.
@@ -21,19 +22,19 @@ public class OrderDTO {
 
     private boolean shipped;
 
-    private List<ServiceDTO> listOfServices;
+    private Set<ServiceDTO> services;
 
-    private List<TireDTO> listOfTires;
+    private Set<TireDTO> tires;
 
-    public OrderDTO(Long id, Long clientId, String note, PaymentType paymentType, boolean paymentConfirmed, boolean shipped, List<ServiceDTO> listOfServices, List<TireDTO> listOfTires) {
+    public OrderDTO(Long id, Long clientId, String note, PaymentType paymentType, boolean paymentConfirmed, boolean shipped, Set<ServiceDTO> services, Set<TireDTO> tires) {
         this.id = id;
         this.clientId = clientId;
         this.note = note;
         this.paymentType = paymentType;
         this.paymentConfirmed = paymentConfirmed;
         this.shipped = shipped;
-        this.listOfServices = listOfServices;
-        this.listOfTires = listOfTires;
+        this.services = services;
+        this.tires = tires;
     }
 
     public OrderDTO() {
@@ -87,20 +88,20 @@ public class OrderDTO {
         this.shipped = shipped;
     }
 
-    public List<TireDTO> getListOfTires() {
-        return listOfTires;
+    public Set<TireDTO> getTires() {
+        return tires;
     }
 
-    public void setListOfTires(List<TireDTO> listOfTires) {
-        this.listOfTires = listOfTires;
+    public void setTires(Set<TireDTO> tires) {
+        this.tires = tires;
     }
 
-    public List<ServiceDTO> getListOfServices() {
-        return listOfServices;
+    public Set<ServiceDTO> getServices() {
+        return services;
     }
 
-    public void setListOfServices(List<ServiceDTO> listOfServices) {
-        this.listOfServices = listOfServices;
+    public void setServices(Set<ServiceDTO> services) {
+        this.services = services;
     }
 
     @Override

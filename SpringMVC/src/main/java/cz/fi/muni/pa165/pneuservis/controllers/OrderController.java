@@ -25,6 +25,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import static cz.fi.muni.pa165.pneuservis.enums.PersonType.EMPLOYEE;
@@ -164,8 +165,8 @@ public class OrderController {
         }
         CreateOrderDTO tmpOrder = CreateOrderDTO.class.cast(session.getAttribute("tmpOrder"));
         ServiceDTO service = serviceFacade.findById(id);
-        if (tmpOrder.getListOfServices() == null) tmpOrder.setListOfServices(new ArrayList<>());
-        tmpOrder.getListOfServices().add(service);
+        if (tmpOrder.getServices() == null) tmpOrder.setServices(new HashSet<>());
+        tmpOrder.getServices().add(service);
         model.addAttribute("order", tmpOrder);
         model.addAttribute("paymentTypeValues", PaymentType.values());
         return "order/create";
@@ -188,16 +189,16 @@ public class OrderController {
         CreateOrderDTO tmpOrder = CreateOrderDTO.class.cast(session.getAttribute("tmpOrder"));
         tmpOrder.setPaymentType(order.getPaymentType());
         tmpOrder.setNote(order.getNote());
-        if (order.getListOfServices() != null) {
-            int i = -1;
-            for (ServiceDTO service : tmpOrder.getListOfServices()
+        if (order.getServices() != null) {
+            ServiceDTO s = null;
+            for (ServiceDTO service : tmpOrder.getServices()
                     ) {
                 if (service.getId() == id) {
-                    i = tmpOrder.getListOfServices().indexOf(service);
+                    s = service;
                     break;
                 }
             }
-            if (i != -1) order.getListOfServices().remove(i);
+            if (s != null) order.getServices().remove(s);
         }
         model.addAttribute("order", tmpOrder);
         model.addAttribute("paymentTypeValues", PaymentType.values());
@@ -231,8 +232,8 @@ public class OrderController {
         }
         TireDTO tire = tireFacade.findById(id);
         CreateOrderDTO tmpOrder = CreateOrderDTO.class.cast(session.getAttribute("tmpOrder"));
-        if (tmpOrder.getListOfTires() == null) tmpOrder.setListOfTires(new ArrayList<>());
-        tmpOrder.getListOfTires().add(tire);
+        if (tmpOrder.getTires() == null) tmpOrder.setTires(new HashSet<>());
+        tmpOrder.getTires().add(tire);
         model.addAttribute("order", tmpOrder);
         model.addAttribute("paymentTypeValues", PaymentType.values());
         return "order/create";
@@ -255,16 +256,16 @@ public class OrderController {
         CreateOrderDTO tmpOrder = CreateOrderDTO.class.cast(session.getAttribute("tmpOrder"));
         tmpOrder.setPaymentType(order.getPaymentType());
         tmpOrder.setNote(order.getNote());
-        if (tmpOrder.getListOfTires() != null) {
-            int i = -1;
-            for (TireDTO tire : tmpOrder.getListOfTires()
+        if (tmpOrder.getTires() != null) {
+            TireDTO t = null;
+            for (TireDTO tire : tmpOrder.getTires()
                     ) {
                 if (tire.getId() == id) {
-                    i = tmpOrder.getListOfTires().indexOf(tire);
+                    t = tire;
                     break;
                 }
             }
-            if (i != -1) tmpOrder.getListOfTires().remove(i);
+            if (t != null) tmpOrder.getTires().remove(t);
         }
         model.addAttribute("order", tmpOrder);
         model.addAttribute("paymentTypeValues", PaymentType.values());
@@ -314,8 +315,8 @@ public class OrderController {
         }
         OrderDTO orderToUpdate = orderFacade.findOrderById(order.getId());
         if (orderToUpdate == null) throw new BadRequestException();
-        order.setListOfServices(orderToUpdate.getListOfServices());
-        order.setListOfTires(orderToUpdate.getListOfTires());
+        order.setServices(orderToUpdate.getServices());
+        order.setTires(orderToUpdate.getTires());
         orderFacade.update(order);
         redirectAttributes.addFlashAttribute("alert_success", "Service " + order.getId() + " has been updated.");
         return "redirect:" + uriBuilder.path("/order/list").toUriString();

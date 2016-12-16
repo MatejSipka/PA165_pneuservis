@@ -9,7 +9,9 @@ import cz.fi.muni.pa165.pneuservis.enums.TireManufacturer;
 import cz.fi.muni.pa165.pneuservis.enums.TireType;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
@@ -46,8 +48,8 @@ public class OrderDAOImplTest extends AbstractTestNGSpringContextTests {
     private Order order1;
     private Order order2;
 
-    private List<Services> services;
-    private List<Tire> tires;
+    private Set<Services> services;
+    private Set<Tire> tires;
 
     private Tire tire1;
 
@@ -59,8 +61,8 @@ public class OrderDAOImplTest extends AbstractTestNGSpringContextTests {
         order1 = new Order();
         order2 = new Order();
 
-        services = new ArrayList<Services>();
-        tires = new ArrayList<Tire>();
+        services = new HashSet<>();
+        tires = new HashSet<>();
 
         tire1 = new Tire();
         tire1.setManufacturer(TireManufacturer.BARUM);
@@ -81,16 +83,16 @@ public class OrderDAOImplTest extends AbstractTestNGSpringContextTests {
         services.add(service1);
 
         order1.setClientId(1L);
-        order1.setListOfServices(services);
-        order1.setListOfTires(tires);
+        order1.setServices(services);
+        order1.setTires(tires);
         order1.setNote("Please");
         order1.setPaymentConfirmed(false);
         order1.setPaymentType(PaymentType.COD);
         order1.setShipped(false);
 
         order2.setClientId(2L);
-        order2.setListOfServices(services);
-        order2.setListOfTires(tires);
+        order2.setServices(services);
+        order2.setTires(tires);
         order2.setNote("Thank you");
         order1.setPaymentConfirmed(false);
         order1.setPaymentType(PaymentType.TRANSFER);
@@ -160,8 +162,8 @@ public class OrderDAOImplTest extends AbstractTestNGSpringContextTests {
     private void assertOrderEquals(Order actual, Order expected) {
         Assert.assertEquals(actual.getId(), expected.getId());
         Assert.assertEquals(actual.getClientId(), expected.getClientId());
-        Assert.assertEquals(actual.getListOfServices(), expected.getListOfServices());
-        Assert.assertEquals(actual.getListOfTires(), expected.getListOfTires());
+        Assert.assertEquals(actual.getServices(), expected.getServices());
+        Assert.assertEquals(actual.getTires(), expected.getTires());
         Assert.assertEquals(actual.getNote(), expected.getNote());
     }
 }

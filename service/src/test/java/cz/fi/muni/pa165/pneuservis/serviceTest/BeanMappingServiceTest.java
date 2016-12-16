@@ -10,7 +10,9 @@ import cz.fi.muni.pa165.pneuservis.configuration.ServiceConfiguration;
 import cz.fi.muni.pa165.pneuservis.services.BeanMappingService;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import cz.fi.muni.pa165.pneuservis.services.BillingItem;
 import cz.fi.muni.pa165.pneuservis.services.OrderBilling;
@@ -73,13 +75,13 @@ public class BeanMappingServiceTest extends AbstractTestNGSpringContextTests {
         tireDTO.setCatalogNumber(12223);
         tireDTO.setTireSize(255);
 
-        List<Services> services = new ArrayList<>();
+        Set<Services> services = new HashSet<>();
         services.add(service);
-        List<Tire> tires = new ArrayList<>();
+        Set<Tire> tires = new HashSet<>();
         tires.add(tire);
-        List<ServiceDTO> serviceDTOs = new ArrayList<>();
+        Set<ServiceDTO> serviceDTOs = new HashSet<>();
         serviceDTOs.add(serviceDTO);
-        List<TireDTO> tireDTOs = new ArrayList<>();
+        Set<TireDTO> tireDTOs = new HashSet<>();
         tireDTOs.add(tireDTO);
 
         order = new Order();
@@ -88,8 +90,8 @@ public class BeanMappingServiceTest extends AbstractTestNGSpringContextTests {
         order.setPaymentType(PaymentType.COD);
         order.setNote("Test");
         order.setClientId(1L);
-        order.setListOfServices(services);
-        order.setListOfTires(tires);
+        order.setServices(services);
+        order.setTires(tires);
 
         orderDTO = new OrderDTO();
         orderDTO.setPaymentConfirmed(true);
@@ -97,7 +99,7 @@ public class BeanMappingServiceTest extends AbstractTestNGSpringContextTests {
         orderDTO.setPaymentType(PaymentType.COD);
         orderDTO.setNote("Test");
         orderDTO.setClientId(1L);
-        orderDTO.setListOfServices(serviceDTOs);
+        orderDTO.setServices(serviceDTOs);
 
         billingItem = new BillingItem();
         billingItem.setPrice(new BigDecimal(79));
@@ -118,16 +120,16 @@ public class BeanMappingServiceTest extends AbstractTestNGSpringContextTests {
         createOrderDTO.setClientId(1L);
         createOrderDTO.setNote("Test");
         createOrderDTO.setPaymentType(PaymentType.COD);
-        createOrderDTO.setListOfServices(serviceDTOs);
-        createOrderDTO.setListOfTires(tireDTOs);
+        createOrderDTO.setServices(serviceDTOs);
+        createOrderDTO.setTires(tireDTOs);
 
         updateOrderDTO = new UpdateOrderDTO();
         updateOrderDTO.setId(1L);
         updateOrderDTO.setClientId(1L);
         updateOrderDTO.setNote("Test");
         updateOrderDTO.setPaymentType(PaymentType.COD);
-        updateOrderDTO.setListOfServices(serviceDTOs);
-        updateOrderDTO.setListOfTires(tireDTOs);
+        updateOrderDTO.setServices(serviceDTOs);
+        updateOrderDTO.setTires(tireDTOs);
     }
 
     @Test
@@ -193,10 +195,10 @@ public class BeanMappingServiceTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(createOrderDTO.getClientId(), order1.getClientId());
         Assert.assertEquals(createOrderDTO.getNote(), order1.getNote());
         Assert.assertEquals(createOrderDTO.getPaymentType(), order1.getPaymentType());
-        Assert.assertNotNull(order1.getListOfServices());
-        Assert.assertEquals(createOrderDTO.getListOfServices().size(), order1.getListOfServices().size());
-        Assert.assertNotNull(order1.getListOfTires());
-        Assert.assertEquals(createOrderDTO.getListOfTires().size(), order1.getListOfTires().size());
+        Assert.assertNotNull(order1.getServices());
+        Assert.assertEquals(createOrderDTO.getServices().size(), order1.getServices().size());
+        Assert.assertNotNull(order1.getTires());
+        Assert.assertEquals(createOrderDTO.getTires().size(), order1.getTires().size());
     }
 
     @Test
@@ -207,10 +209,10 @@ public class BeanMappingServiceTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(updateOrderDTO.getClientId(), order1.getClientId());
         Assert.assertEquals(updateOrderDTO.getNote(), order1.getNote());
         Assert.assertEquals(updateOrderDTO.getPaymentType(), order1.getPaymentType());
-        Assert.assertNotNull(order1.getListOfServices());
-        Assert.assertEquals(updateOrderDTO.getListOfServices().size(), order1.getListOfServices().size());
-        Assert.assertNotNull(order1.getListOfTires());
-        Assert.assertEquals(updateOrderDTO.getListOfTires().size(), order1.getListOfTires().size());
+        Assert.assertNotNull(order1.getServices());
+        Assert.assertEquals(updateOrderDTO.getServices().size(), order1.getServices().size());
+        Assert.assertNotNull(order1.getTires());
+        Assert.assertEquals(updateOrderDTO.getTires().size(), order1.getTires().size());
     }
 
     @Test
