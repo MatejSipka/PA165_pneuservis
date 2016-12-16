@@ -12,7 +12,7 @@ import java.io.IOException;
 /**
  * @author Maros Staurovsky
  */
-@WebFilter(urlPatterns = {"/order/*", "/person/*", "/service/*", "/tire/*"})
+@WebFilter(urlPatterns = {"/order/*", "/person/*", "/service/*", "/tire/*", "/orders/*"})
 public class ProtectFilter implements Filter {
     final static Logger log = org.slf4j.LoggerFactory.getLogger(ProtectFilter.class);
 
