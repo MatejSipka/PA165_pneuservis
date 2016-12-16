@@ -1,7 +1,6 @@
 <%--
     Document   : view
-    Created on : 12-Dec-2016, 22:59:43
-    Author     : Maros Staurovsky
+    Author     : vit.holasek
 --%>
 
 

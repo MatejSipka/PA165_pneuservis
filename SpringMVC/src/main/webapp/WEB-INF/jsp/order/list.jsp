@@ -1,7 +1,6 @@
 <%--
     Document   : list
-    Created on : 12-Dec-2016, 22:59:30
-    Author     : Maros Staurovsky
+    Author     : vit.holasek
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="utf-8" trimDirectiveWhitespaces="false" session="false" %>
