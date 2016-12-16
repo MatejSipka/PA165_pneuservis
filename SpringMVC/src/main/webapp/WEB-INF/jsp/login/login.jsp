@@ -17,7 +17,6 @@
 
                 <form id="loginform" class="form-signin" action="<c:url value='login/check' />" method="POST">
                     <h2 class="form-signin-heading">Please sign in</h2>
-                    <label for="inputLogin" class="sr-only">Login</label>
                     <input name="login" type="text" id="inputLogin" class="form-control" placeholder="Login" required autofocus>
                     <label for="inputPassword" class="sr-only">Password</label>
                     <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
