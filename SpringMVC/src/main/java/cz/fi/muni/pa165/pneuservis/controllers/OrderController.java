@@ -189,7 +189,7 @@ public class OrderController {
         CreateOrderDTO tmpOrder = CreateOrderDTO.class.cast(session.getAttribute("tmpOrder"));
         tmpOrder.setPaymentType(order.getPaymentType());
         tmpOrder.setNote(order.getNote());
-        if (order.getServices() != null) {
+        if (tmpOrder.getServices() != null) {
             ServiceDTO s = null;
             for (ServiceDTO service : tmpOrder.getServices()
                     ) {
@@ -198,7 +198,7 @@ public class OrderController {
                     break;
                 }
             }
-            if (s != null) order.getServices().remove(s);
+            if (s != null) tmpOrder.getServices().remove(s);
         }
         model.addAttribute("order", tmpOrder);
         model.addAttribute("paymentTypeValues", PaymentType.values());
@@ -239,7 +239,7 @@ public class OrderController {
         return "order/create";
     }
 
-    @RequestMapping(value = "/create/tire/{id}/remove", method = RequestMethod.POST)
+    @RequestMapping(value = "/create/tires/{id}/remove", method = RequestMethod.POST)
     public String createTireService(@PathVariable long id, @Valid @ModelAttribute("order") CreateOrderDTO order,
                                       BindingResult bindingResult,
                                       Model model,
