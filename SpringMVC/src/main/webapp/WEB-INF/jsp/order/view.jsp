@@ -11,7 +11,7 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<my:pageTemplate title="Order view">
+<my:pageTemplate title="Order View">
 <jsp:attribute name="body">
 
     <a href="/order/${order.id}/billing" target="_blank" class="btn btn-primary">Billing</a>
@@ -65,5 +65,46 @@
         </tbody>
     </table>
 
+    <c:if test="${order.listOfServices != null}">
+     <table class="table">
+         <caption>Ordered Services</caption>
+         <thead>
+         <tr>
+             <th>Description</th>
+             <th>Duration</th>
+             <th>Price</th>
+         </tr>
+         </thead>
+         <tbody>
+         <c:forEach items="${order.listOfServices}" var="service">
+            <tr>
+                <td><c:out value="${service.description}"/></td>
+                <td><c:out value="${service.duration}"/></td>
+                <td><c:out value="${service.price}"/></td>
+            </tr>
+        </c:forEach>
+         </tbody>
+     </table>
+    </c:if>
+
+    <c:if test="${order.listOfTires != null}">
+    <table class="table">
+        <caption>Ordered Tires</caption>
+        <thead>
+        <tr>
+            <th>Description</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${order.listOfTires}" var="tire">
+            <tr>
+                <td><c:out value="${tire.description}"/></td>
+                <td><c:out value="${tire.price}"/></td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+    </c:if>
 </jsp:attribute>
 </my:pageTemplate>

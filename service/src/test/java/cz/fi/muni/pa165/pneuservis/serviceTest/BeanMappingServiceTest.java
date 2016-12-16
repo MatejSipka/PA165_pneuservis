@@ -6,7 +6,6 @@ import cz.fi.muni.pa165.pneuservis.entity.Services;
 import cz.fi.muni.pa165.pneuservis.entity.Tire;
 import cz.fi.muni.pa165.pneuservis.enums.PaymentType;
 import cz.fi.muni.pa165.pneuservis.enums.TireManufacturer;
-import cz.fi.muni.pa165.pneuservis.enums.TireType;
 import cz.fi.muni.pa165.pneuservis.configuration.ServiceConfiguration;
 import cz.fi.muni.pa165.pneuservis.services.BeanMappingService;
 import java.math.BigDecimal;
@@ -98,6 +97,7 @@ public class BeanMappingServiceTest extends AbstractTestNGSpringContextTests {
         orderDTO.setPaymentType(PaymentType.COD);
         orderDTO.setNote("Test");
         orderDTO.setClientId(1L);
+        orderDTO.setListOfServices(serviceDTOs);
 
         billingItem = new BillingItem();
         billingItem.setPrice(new BigDecimal(79));

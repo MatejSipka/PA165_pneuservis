@@ -2,6 +2,7 @@ package cz.fi.muni.pa165.pneuservis.dto;
 
 import cz.fi.muni.pa165.pneuservis.enums.PaymentType;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -20,16 +21,23 @@ public class OrderDTO {
 
     private boolean shipped;
 
-    public OrderDTO(Long id, Long clientId, String note, PaymentType paymentType, boolean paymentConfirmed, boolean shipped) {
+    private List<ServiceDTO> listOfServices;
+
+    private List<TireDTO> listOfTires;
+
+    public OrderDTO(Long id, Long clientId, String note, PaymentType paymentType, boolean paymentConfirmed, boolean shipped, List<ServiceDTO> listOfServices, List<TireDTO> listOfTires) {
         this.id = id;
         this.clientId = clientId;
         this.note = note;
         this.paymentType = paymentType;
         this.paymentConfirmed = paymentConfirmed;
         this.shipped = shipped;
+        this.listOfServices = listOfServices;
+        this.listOfTires = listOfTires;
     }
 
-    public OrderDTO() { }
+    public OrderDTO() {
+    }
 
     public Long getId() {
         return id;
@@ -77,6 +85,22 @@ public class OrderDTO {
 
     public void setShipped(boolean shipped) {
         this.shipped = shipped;
+    }
+
+    public List<TireDTO> getListOfTires() {
+        return listOfTires;
+    }
+
+    public void setListOfTires(List<TireDTO> listOfTires) {
+        this.listOfTires = listOfTires;
+    }
+
+    public List<ServiceDTO> getListOfServices() {
+        return listOfServices;
+    }
+
+    public void setListOfServices(List<ServiceDTO> listOfServices) {
+        this.listOfServices = listOfServices;
     }
 
     @Override
