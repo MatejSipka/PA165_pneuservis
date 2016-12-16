@@ -102,6 +102,22 @@ public class OrderController {
         return "order/create";
     }
 
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public String createRedirectBack(Model model){
+        PersonDTO person = PersonDTO.class.cast(session.getAttribute("authenticated"));
+        if (person != null) {
+            if (personFacade.findById(person.getId()).getPersonType() == EMPLOYEE) {
+                model.addAttribute("Admin", person.getLogin());
+            } else {
+                model.addAttribute("User", person.getLogin());
+            }
+        }
+        CreateOrderDTO tmpOrder = CreateOrderDTO.class.cast(session.getAttribute("tmpOrder"));
+        model.addAttribute("order", tmpOrder);
+        model.addAttribute("paymentTypeValues", PaymentType.values());
+        return "order/create";
+    }
+
     @RequestMapping(value = "/create/submit", method = RequestMethod.POST)
     public String createSubmit(@Valid @ModelAttribute("order") CreateOrderDTO order,
                                BindingResult bindingResult,
