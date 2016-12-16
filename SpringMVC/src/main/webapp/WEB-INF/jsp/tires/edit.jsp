@@ -14,15 +14,13 @@
 <my:pageTemplate title="New tire">
     <jsp:attribute name="body">
         <c:if test="${not empty Admin}">   
-            <form:form method="post" action="${pageContext.request.contextPath}/tires/create"
+            <form:form method="post" action="${pageContext.request.contextPath}/tires/edit/${tireId}"
                        modelAttribute="tireCreate" cssClass="form-horizontal">
                 <div class="form-group ${manufacturer_error?'has-error':''}">
                     <form:label path="manufacturer" cssClass="col-sm-2 control-label">Manufacturer</form:label>
                         <div class="col-sm-10">
                         <form:select path="manufacturer" cssClass="form-control">
-                            <c:forEach items="${manufacturers}" var="manuf">
-                                <option value="${manuf}">${manuf}</option>
-                            </c:forEach>
+                            <form:options items="${manufacturers}"/>
                         </form:select>
                         <form:errors path="manufacturer" cssClass="help-block"/>
                     </div>
@@ -31,9 +29,7 @@
                     <form:label path="type" cssClass="col-sm-2 control-label">Type</form:label>
                         <div class="col-sm-10">
                         <form:select path="type" cssClass="form-control">
-                            <c:forEach items="${seasons}" var="type">
-                                <option value="${type}">${type}</option>
-                            </c:forEach>
+                            <form:options items="${seasons}"/>
                         </form:select>
                         <form:errors path="type" cssClass="help-block"/>
                     </div>
@@ -80,7 +76,7 @@
                         <form:errors path="typeOfCar" cssClass="help-block"/>
                     </div>
                 </div>
-                <button class="btn btn-primary" type="submit">Create tire</button>
+                <button class="btn btn-primary" type="submit">Update tire</button>
             </form:form>
         </c:if>
 
@@ -89,4 +85,3 @@
         </c:if>
     </jsp:attribute>
 </my:pageTemplate>
-            

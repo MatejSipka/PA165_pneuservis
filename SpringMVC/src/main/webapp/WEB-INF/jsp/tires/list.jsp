@@ -16,7 +16,7 @@
     <c:if test="${not empty Admin}">
     <my:a href="/tires/create" class="btn btn-primary"> New Tire</my:a>
     </c:if>
-
+    
     <table class="table">
         <caption>Tires list</caption>
         <thead>
@@ -58,3 +58,4 @@
 
 </jsp:attribute>
 </my:pageTemplate>
+    

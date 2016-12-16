@@ -10,6 +10,7 @@ import cz.fi.muni.pa165.pneuservis.dto.TireDTO;
 import static cz.fi.muni.pa165.pneuservis.enums.PersonType.EMPLOYEE;
 import cz.fi.muni.pa165.pneuservis.enums.TireManufacturer;
 import cz.fi.muni.pa165.pneuservis.enums.TireType;
+import cz.fi.muni.pa165.pneuservis.exception.PneuservisPortalDataAccessException;
 import cz.fi.muni.pa165.pneuservis.facade.PersonFacade;
 import cz.fi.muni.pa165.pneuservis.facade.TireFacade;
 import javax.servlet.http.HttpSession;
@@ -23,6 +24,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -73,7 +75,7 @@ public class TireController {
             BindingResult bindingResult, Model model,
             RedirectAttributes redirectAttributes,
             UriComponentsBuilder uriBuilder) {
-        
+
         if (bindingResult.hasErrors()) {
             for (ObjectError ge : bindingResult.getGlobalErrors()) {
                 log.trace("ObjectError: {}", ge);
@@ -84,11 +86,62 @@ public class TireController {
             }
             return "tires/create";
         }
-        
+
         tireFacade.create(tireDTO);
         int id = tireDTO.getCatalogNumber();
         redirectAttributes.addFlashAttribute("alert_success", "Tire with a catalog number " + id + " was created");
-        return "redirect:tires/list";
+        return "redirect:" + uriBuilder.path("/tires/list").toUriString();
+    }
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
+    public String delete(@PathVariable long id,
+            Model model,
+            UriComponentsBuilder uriBuilder,
+            RedirectAttributes redirectAttributes) {
+
+        TireDTO tire = tireFacade.findById(id);
+        try {
+            tireFacade.delete(tire);
+        } catch (PneuservisPortalDataAccessException e) {
+            redirectAttributes.addFlashAttribute("alert_delete", "Tire can not be deleted. Maybe it is in an order.");
+            return "redirect:" + uriBuilder.path("/tires/list").toUriString();
+        }
+        redirectAttributes.addFlashAttribute("alert_success", "Tire successfully deleted.");
+        return "redirect:" + uriBuilder.path("/tires/list").toUriString();
+    }
+
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    public String edit(@PathVariable long id, Model model) {
+
+        model = checkForPermissions(model);
+        model.addAttribute("tireId",id);
+        model.addAttribute("tireCreate", tireFacade.findById(id));
+        model.addAttribute("manufacturers", TireManufacturer.values());
+        model.addAttribute("seasons", TireType.values());
+        return "tires/edit";
+    }
+
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
+    public String edit(@Valid @ModelAttribute("tireCreate") TireDTO tireDTO,
+            BindingResult bindingResult, Model model,
+            RedirectAttributes redirectAttributes,
+            UriComponentsBuilder uriBuilder) {
+
+        if (bindingResult.hasErrors()) {
+            for (ObjectError ge : bindingResult.getGlobalErrors()) {
+                log.trace("ObjectError: {}", ge);
+            }
+            for (FieldError fe : bindingResult.getFieldErrors()) {
+                model.addAttribute(fe.getField() + "_error", true);
+                log.trace("FieldError: {}", fe);
+            }
+            return "tires/ecit";
+        }
+
+        tireFacade.update(tireDTO);
+        int id = tireDTO.getCatalogNumber();
+        redirectAttributes.addFlashAttribute("alert_success", "Tire with a catalog number " + id + " has been updated.");
+        return "redirect:" + uriBuilder.path("/tires/list").toUriString();
     }
 
     private Model checkForPermissions(Model model) {
