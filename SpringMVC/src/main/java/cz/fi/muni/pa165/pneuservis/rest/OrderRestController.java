@@ -6,6 +6,7 @@ import cz.fi.muni.pa165.pneuservis.dto.OrderDTO;
 import cz.fi.muni.pa165.pneuservis.dto.UpdateOrderDTO;
 import cz.fi.muni.pa165.pneuservis.facade.OrderFacade;
 import cz.fi.muni.pa165.pneuservis.rest.exceptions.BadRequestException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/pa165/rest/orders")
 public class OrderRestController {
-    @Inject
+    @Autowired
     private OrderFacade orderFacade;
 
     @RequestMapping(value = "",

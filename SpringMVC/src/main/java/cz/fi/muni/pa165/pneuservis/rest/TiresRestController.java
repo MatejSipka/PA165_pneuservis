@@ -3,6 +3,7 @@ package cz.fi.muni.pa165.pneuservis.rest;
 import cz.fi.muni.pa165.pneuservis.dto.TireDTO;
 import cz.fi.muni.pa165.pneuservis.facade.TireFacade;
 import cz.fi.muni.pa165.pneuservis.rest.exceptions.BadRequestException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ import java.util.List;
 @RequestMapping("/pa165/rest/tires")
 public class TiresRestController {
 
-    @Inject
+    @Autowired
     private TireFacade tireFacade;
 
     @RequestMapping(value = "", method = RequestMethod.GET, headers = "Accept=application/json",
