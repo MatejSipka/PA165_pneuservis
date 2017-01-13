@@ -97,8 +97,20 @@ public class PersonController {
                 model.addAttribute(fe.getField() + "_error", true);
                 log.trace("FieldError: {}", fe);
             }
+            model.addAttribute("personCreate",personForm);
             return "person/create";
         }
+        
+        if(personFacade.findPersonByLogin(personForm.getLogin()) != null) {
+            redirectAttributes.addFlashAttribute("alert_warning", "Chosen login" +personForm.getLogin()+ "is not available.");
+            return "redirect:" + uriBuilder.path("/person/create").build().toUriString();
+        }
+        if(personForm.getDateOfBirth() == null || personForm.getFirstname() == null || personForm.getPersonType() == null ||
+                personForm.getPasswordHash() == null || personForm.getSurname() == null || personForm.getLogin() == null) {
+            redirectAttributes.addFlashAttribute("alert_warning", "All fields are mandatory!");
+            return "redirect:" + uriBuilder.path("/person/create").build().toUriString();
+        }
+        
         Long id = personFacade.create(personForm, personForm.getPasswordHash());
         redirectAttributes.addFlashAttribute("alert_success", "Person " + id + " was created");
         return "redirect:" + uriBuilder.path("/person/view/{id}").buildAndExpand(id).encode().toUriString();
@@ -173,6 +185,17 @@ public class PersonController {
     public String save(@Valid @ModelAttribute("person") PersonDTO formBean, @PathVariable("id") Long id, BindingResult bindingResult,
                          Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
         formBean.setId(id);
+        if (bindingResult.hasErrors()) {
+            for (ObjectError ge : bindingResult.getGlobalErrors()) {
+                log.trace("ObjectError: {}", ge);
+            }
+            for (FieldError fe : bindingResult.getFieldErrors()) {
+                model.addAttribute(fe.getField() + "_error", true);
+                log.trace("FieldError: {}", fe);
+            }
+            model.addAttribute("person",formBean);
+            return "person/edit";
+        }
 //        if (formBean.getDateOfBirth().getTime() == NULL)
 //        {
 //            
@@ -182,6 +205,18 @@ public class PersonController {
             String passwordHash = personFacade.findById(id).getPasswordHash();
             formBean.setPasswordHash(passwordHash);
         }
+        
+        if(personFacade.findPersonByLogin(formBean.getLogin()) != null) {
+            redirectAttributes.addFlashAttribute("alert_warning", "Chosen login" +formBean.getLogin()+ "is not available.");
+            return "redirect:" + uriBuilder.path("/person/edit/{id}").buildAndExpand(id).encode().toUriString();
+        }
+        
+        if(formBean.getDateOfBirth() == null || formBean.getFirstname() == null || formBean.getPersonType() == null || 
+                formBean.getSurname() == null || formBean.getLogin() == null) {
+            redirectAttributes.addFlashAttribute("alert_warning", "All fields except password are mandatory!");
+            return "redirect:" + uriBuilder.path("/person/edit/{id}").buildAndExpand(id).encode().toUriString();
+        }
+        
         return view(model, personFacade.update(formBean).getId());
     }
 

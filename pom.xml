@@ -107,6 +107,6 @@
         <module>SpringMVC</module>
         <module>service</module>
         <module>SampleData</module>
-    </modules>
+  </modules>
     
 </project>
