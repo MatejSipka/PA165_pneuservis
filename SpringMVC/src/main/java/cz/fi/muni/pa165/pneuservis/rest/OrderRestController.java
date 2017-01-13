@@ -58,6 +58,10 @@ public class OrderRestController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public final ResponseEntity<OrderDTO> post(@RequestBody CreateOrderDTO order) {
+        if (order.getServices().size() == 0 && order.getTires().size() == 0)
+        {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(orderFacade.create(order), HttpStatus.CREATED);
     }
 
@@ -66,6 +70,10 @@ public class OrderRestController {
             headers = "Accept=application/json",
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public final ResponseEntity<OrderDTO> put(@PathVariable long id, @RequestBody UpdateOrderDTO order) {
+        if (order.getServices().size() == 0 && order.getTires().size() == 0)
+        {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         order.setId(id);
         OrderDTO gatheredOrder = orderFacade.findOrderById(id);
         if (gatheredOrder == null) throw new BadRequestException();

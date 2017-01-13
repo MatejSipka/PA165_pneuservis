@@ -45,6 +45,9 @@
         </div>
         </c:if>
         <button class="btn btn-primary" type="submit">Confirm</button>
+        <c:if test="${not empty items_error and items_error == true}">
+            <div style="color: red">Some services or tires must be added to confirm the order.</div>
+        </c:if>
     </form:form>
     <br/>
     <form method="post" action="${pageContext.request.contextPath}/order/create/services">

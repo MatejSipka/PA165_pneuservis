@@ -2,6 +2,7 @@ package cz.fi.muni.pa165.pneuservis.dto;
 
 import cz.fi.muni.pa165.pneuservis.enums.PaymentType;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;

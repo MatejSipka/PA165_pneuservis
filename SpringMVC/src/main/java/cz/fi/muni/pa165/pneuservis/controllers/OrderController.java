@@ -96,6 +96,8 @@ public class OrderController {
             }
         }
         CreateOrderDTO order = new CreateOrderDTO();
+        order.setServices(new HashSet<>());
+        order.setTires(new HashSet<>());
         model.addAttribute("order", order);
         model.addAttribute("paymentTypeValues", PaymentType.values());
         session.setAttribute("tmpOrder", order);
@@ -139,6 +141,11 @@ public class OrderController {
             }
             model.addAttribute("paymentTypeValues", PaymentType.values());
             model.addAttribute("order", tmpOrder);
+            return "order/create";
+        }
+        if (tmpOrder.getServices().size() == 0 && tmpOrder.getTires().size() == 0)
+        {
+            model.addAttribute("items_error", true);
             return "order/create";
         }
         tmpOrder.setPaymentType(order.getPaymentType());
