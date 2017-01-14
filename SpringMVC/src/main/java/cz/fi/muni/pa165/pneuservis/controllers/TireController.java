@@ -60,6 +60,16 @@ public class TireController {
         return "tires/list";
     }
 
+	
+    
+    private boolean validateTireDTO(TireDTO tireDTO) {
+
+        return tireDTO.getPrice() == null || tireDTO.getCatalogNumber() == 0 || tireDTO.getDiameter() == 0 || tireDTO.getManufacturer() == null
+                || tireDTO.getPrice() == null || tireDTO.getTireSize() == 0 || tireDTO.getType() == null;
+
+    }
+
+
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String create(Model model) {
 
@@ -77,16 +87,11 @@ public class TireController {
             RedirectAttributes redirectAttributes,
             UriComponentsBuilder uriBuilder) {
 
-        if (bindingResult.hasErrors()) {
-            for (ObjectError ge : bindingResult.getGlobalErrors()) {
-                log.trace("ObjectError: {}", ge);
-            }
-            for (FieldError fe : bindingResult.getFieldErrors()) {
-                model.addAttribute(fe.getField() + "_error", true);
-                log.trace("FieldError: {}", fe);
-            }
-            return "tires/create";
-        }
+        if (validateTireDTO(tireDTO)) {
+		redirectAttributes.addFlashAttribute("alert_success", "PLEASE FILL ALL FIELDS. VALUES HAVE TO BE A POSITIVE NUMBER.");
+		return "redirect:" + uriBuilder.path("/tires/create").build().toUriString();
+	}
+
 
         tireFacade.create(tireDTO);
         int id = tireDTO.getCatalogNumber();
@@ -127,16 +132,10 @@ public class TireController {
             RedirectAttributes redirectAttributes,
             UriComponentsBuilder uriBuilder) {
 
-        if (bindingResult.hasErrors()) {
-            for (ObjectError ge : bindingResult.getGlobalErrors()) {
-                log.trace("ObjectError: {}", ge);
-            }
-            for (FieldError fe : bindingResult.getFieldErrors()) {
-                model.addAttribute(fe.getField() + "_error", true);
-                log.trace("FieldError: {}", fe);
-            }
-            return "tires/edit";
-        }
+   //     if (validateTireDTO(tireDTO)) {
+     //           redirectAttributes.addFlashAttribute("alert_success", "PLEASE FILL ALL FIELDS.");
+//		return "redirect:" + uriBuilder.path("/tires/edit/"+ pathId).build().toUriString();
+  //      }
 
         tireFacade.update(tireDTO);
         int id = tireDTO.getCatalogNumber();
