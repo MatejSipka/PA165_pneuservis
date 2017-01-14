@@ -14,6 +14,15 @@
 <my:loginTemplate title="New person">
     <jsp:attribute name="body">
         <c:if test="${not empty NewUser}">
+            <c:if test="${not empty alert_failure1}">
+                <div class="alert alert-danger" role="alert"><c:out value="${alert_failure1}"/></div>
+            </c:if>
+            <c:if test="${not empty alert_failure2}">
+                <div class="alert alert-danger" role="alert"><c:out value="${alert_failure2}"/></div>
+            </c:if>
+            <c:if test="${not empty alert_failure3}">
+                <div class="alert alert-danger" role="alert"><c:out value="${alert_failure3}"/></div>
+            </c:if>
         <form:form method="post" action="${pageContext.request.contextPath}/createNewAccount"
                    modelAttribute="personCreate" cssClass="form-horizontal">
             <div class="form-group ${personType_error?'has-error':''}">

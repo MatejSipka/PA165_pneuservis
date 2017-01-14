@@ -29,6 +29,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.math.BigDecimal;
+
 /**
  *
  * @author Ivan Moscovic
@@ -81,22 +83,16 @@ public class ServiceController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(@Valid @ModelAttribute("serviceCreate") ServiceDTO serviceDTO,
-                         BindingResult bindingResult,
-                         Model model,
+                         BindingResult bindingResult, Model model,
                          RedirectAttributes redirectAttributes,
                          UriComponentsBuilder uriBuilder) {
         log.debug("service.create() GET Request", serviceDTO);
 
-        if (bindingResult.hasErrors()) {
-            for (ObjectError ge : bindingResult.getGlobalErrors()) {
-                log.trace("ObjectError: {}", ge);
-            }
-            for (FieldError fe : bindingResult.getFieldErrors()) {
-                model.addAttribute(fe.getField() + "_error", true);
-                log.trace("FieldError: {}", fe);
-            }
-            return "service/create";
+        if (validateServiceDTO(serviceDTO)) {
+            redirectAttributes.addFlashAttribute("alert_failure", "PLEASE FILL ALL FIELDS. VALUES HAVE TO BE A POSITIVE NUMBER.");
+            return "redirect:" + uriBuilder.path("/service/create").build().toUriString();
         }
+
         Long id = serviceFacade.create(serviceDTO);
         redirectAttributes.addFlashAttribute("alert_success", "Service " + id + " was created");
         return "redirect:" + uriBuilder.path("/service/view/{id}").buildAndExpand(id).encode().toUriString();
@@ -160,22 +156,33 @@ public class ServiceController {
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-    public String edit(@Valid @ModelAttribute("serviceCreate") ServiceDTO serviceDTO,
+    public String edit(@PathVariable long id,@Valid @ModelAttribute("serviceCreate") ServiceDTO serviceDTO,
                        BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes,
                        UriComponentsBuilder uriBuilder) {
-        if (bindingResult.hasErrors()) {
-            for (ObjectError ge : bindingResult.getGlobalErrors()) {
-                log.trace("ObjectError: {}", ge);
-            }
-            for (FieldError fe : bindingResult.getFieldErrors()) {
-                model.addAttribute(fe.getField() + "_error", true);
-                log.trace("FieldError: {}", fe);
-            }
-            return "service/edit";
+
+        if (validateServiceDTO(serviceDTO)) {
+            redirectAttributes.addFlashAttribute("alert_failure", "PLEASE FILL ALL FIELDS. VALUES HAVE TO BE A POSITIVE NUMBER.");
+            return "redirect:" + uriBuilder.path("/service/edit/"+id).build().toUriString();
         }
-        long id = serviceFacade.update(serviceDTO);
-        redirectAttributes.addFlashAttribute("alert_success", "Service " + id + " has been updated.");
+
+        long updatedId = serviceFacade.update(serviceDTO);
+        redirectAttributes.addFlashAttribute("alert_success", "Service " + updatedId + " has been updated.");
         return "redirect:" + uriBuilder.path("/service/list").toUriString();
     }
+
+    private boolean validateServiceDTO(ServiceDTO serviceDTO) {
+
+        if (serviceDTO.getPrice() == null || serviceDTO.getDuration() <= 0 || serviceDTO.getTypeOfCar() == null
+                || serviceDTO.getDescription() == null || serviceDTO.getNameOfService() == null ||
+                serviceDTO.getPrice().compareTo(BigDecimal.ZERO.ZERO) < 0){
+            return true;
+        }
+        return false;
+
+    }
+
+
+
+
 }
 

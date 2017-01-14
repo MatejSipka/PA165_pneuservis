@@ -13,6 +13,9 @@
 <my:pageTemplate title="New service">
     <jsp:attribute name="body">
         <c:if test="${not empty Admin}">
+            <c:if test="${not empty alert_failure}">
+                <div class="alert alert-danger" role="alert"><c:out value="${alert_failure}"/></div>
+            </c:if>
             <form:form method="post" action="${pageContext.request.contextPath}/service/edit/${serviceId}"
                        modelAttribute="serviceCreate" cssClass="form-horizontal">
                 <div class="form-group ${duration_error?'has-error':''}">
