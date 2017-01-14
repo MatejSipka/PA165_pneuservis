@@ -65,7 +65,7 @@ public class TireController {
     private boolean validateTireDTO(TireDTO tireDTO) {
 
         return tireDTO.getPrice() == null || tireDTO.getCatalogNumber() == 0 || tireDTO.getDiameter() == 0 || tireDTO.getManufacturer() == null
-                || tireDTO.getPrice() == null || tireDTO.getTireSize() == 0 || tireDTO.getType() == null;
+                || tireDTO.getTypeOfCar() == null || tireDTO.getTypeOfCar().isEmpty() || tireDTO.getTireSize() == 0 || tireDTO.getType() == null || tireDTO.getProfile() == 0;
 
     }
 
@@ -132,10 +132,10 @@ public class TireController {
             RedirectAttributes redirectAttributes,
             UriComponentsBuilder uriBuilder) {
 
-   //     if (validateTireDTO(tireDTO)) {
-     //           redirectAttributes.addFlashAttribute("alert_success", "PLEASE FILL ALL FIELDS.");
-//		return "redirect:" + uriBuilder.path("/tires/edit/"+ pathId).build().toUriString();
-  //      }
+        if (validateTireDTO(tireDTO)) {
+              redirectAttributes.addFlashAttribute("alert_success", "PLEASE FILL ALL FIELDS. VALUES HAVE TO BE A POSITIVE NUMBER.");
+		return "redirect:" + uriBuilder.path("/tires/edit/" + tireDTO.getId() ).build().toUriString();
+        }
 
         tireFacade.update(tireDTO);
         int id = tireDTO.getCatalogNumber();
